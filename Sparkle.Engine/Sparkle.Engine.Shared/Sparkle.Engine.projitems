@@ -16,6 +16,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\DynamicAnimation2.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\DynamicAnimation3.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\DynamicAnimationComposite{T}.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\DynamicBase{T}.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\DynamicColor.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\IAnimation{T}.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\IDynamic{T}.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\IDynamicAnimation{T}.cs" />

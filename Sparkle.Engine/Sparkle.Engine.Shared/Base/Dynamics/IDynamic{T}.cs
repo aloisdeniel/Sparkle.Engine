@@ -8,7 +8,7 @@
 	/// <summary>
 	/// Represents a dynamic value, that have a velocity and an acceleration.
 	/// </summary>
-	public interface IDynamic<T> : IUpdateable
+    public interface IDynamic<T> : IUpdateable where T : struct
 	{
         /// <summary>
         /// Defines a friction coeficient that increase with velocity. Even if there's no acceleration it will always be this friction agains velocity.
@@ -25,13 +25,13 @@
 		/// Gets or sets the maximum value.
 		/// </summary>
 		/// <value>The max value.</value>
-		T MaxValue { get; set; }
+		Nullable<T> MaxValue { get; set; }
 
 		/// <summary>
 		/// Gets or sets the minimum value.
 		/// </summary>
 		/// <value>The minimum value.</value>
-		T MinValue { get; set; }
+        Nullable<T> MinValue { get; set; }
 
 		/// <summary>
 		/// Gets or sets the current velocity.
@@ -43,13 +43,13 @@
 		/// Gets or sets the maximum velocity.
 		/// </summary>
 		/// <value>The maximum velocity.</value>
-		T MaxVelocity { get; set; }
+        Nullable<T> MaxVelocity { get; set; }
 
 		/// <summary>
 		/// Gets or sets the minimum velocity.
 		/// </summary>
 		/// <value>The minimum velocity.</value>
-		T MinVelocity { get; set; }
+        Nullable<T> MinVelocity { get; set; }
 
 		/// <summary>
 		/// Gets or sets the current acceleration.
@@ -61,13 +61,13 @@
 		/// Gets or sets the max accleration.
 		/// </summary>
 		/// <value>The max accleration.</value>
-		T MaxAcceleration { get; set; }
+        Nullable<T> MaxAcceleration { get; set; }
 
 		/// <summary>
 		/// Gets or sets the minimum acceleration.
 		/// </summary>
 		/// <value>The minimum acceleration.</value>
-		T MinAcceleration { get; set; }
+        Nullable<T> MinAcceleration { get; set; }
 
         /// <summary>
         /// Gets or sets the current animation. If an animation is started, the acceleration/velocity/position values will not affect current value.

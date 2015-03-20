@@ -9,6 +9,7 @@ namespace Sparkle.Engine.Core
 	using Sparkle.Engine.Base.Shapes;
 	using Sparkle.Engine.Core.Entities;
 	using Sparkle.Engine.Core.Controllers;
+    using Sparkle.Engine.Base.Dynamics;
 
 	public class World : Entity
 	{
@@ -20,6 +21,7 @@ namespace Sparkle.Engine.Core
 		/// <param name="cameraSize">Camera size.</param>
 		public World (float width, float height, Size cameraSize)
 		{
+            this.Background = new DynamicColor(Color.Black);
 			this.Controllers = new List<IController> ();
 			this.MainSamplerState = SamplerState.PointClamp;
 			this.Size = new Size (width, height);
@@ -51,6 +53,11 @@ namespace Sparkle.Engine.Core
 		/// Update area size around camera center. If null, all the entities of the world are updated on each loop.
 		/// </summary>
 		public Size? UpdateAreaSize { get; set; }
+
+        /// <summary>
+        /// Gets or sets the background color.
+        /// </summary>
+        public DynamicColor Background { get; set; }
 
 		/// <summary>
 		/// Gets or sets the main camera.
@@ -169,6 +176,8 @@ namespace Sparkle.Engine.Core
 		protected override void DoUpdate (GameTime gameTime)
 		{
 			this.Camera.Update (gameTime);
+
+            this.Background.Update(gameTime);
 
 			foreach (var controller in this.Controllers) {
 				controller.Update (gameTime);

@@ -203,3 +203,7 @@ FakesAssemblies/
 bin/
 obj/
 *.userprefs
+
+### Custom rules ###
+!Nuget/*/*/*.dll
+!Nuget/NuGet.exe

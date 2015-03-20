@@ -64,10 +64,16 @@ namespace Sparkle.Engine
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw (GameTime gameTime)
 		{
-			GraphicsDevice.Clear (Color.CornflowerBlue);
 
 			if (this.World != null)
-				this.World.Draw (SpriteBatch);
+            {
+                GraphicsDevice.Clear(this.World.Background.Value);
+                this.World.Draw(SpriteBatch);
+            }
+            else
+            {
+                GraphicsDevice.Clear(Color.CornflowerBlue);
+            }
 
 			this.Fps.Draw (this.SpriteBatch, gameTime);
 

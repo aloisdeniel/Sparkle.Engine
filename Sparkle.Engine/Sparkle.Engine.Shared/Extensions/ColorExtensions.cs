@@ -98,6 +98,76 @@
 			return new Vector4 ((color.R) / 255f, (color.G) / 255f, (color.B) / 255f, (color.A) / 255f);
 		}
 
+        public static Color Min(this Color value, Color other)
+        {
+            value.A = Math.Min(other.A, value.A);
+            value.R = Math.Min(other.R, value.R);
+            value.G = Math.Min(other.G, value.G);
+            value.B = Math.Min(other.B, value.B);
+
+            return value;
+        }
+
+        public static Color Max(this Color value, Color other)
+        {
+            value.A = Math.Max(other.A, value.A);
+            value.R = Math.Max(other.R, value.R);
+            value.G = Math.Max(other.G, value.G);
+            value.B = Math.Max(other.B, value.B);
+
+            return value;
+        }
+
+        public static Color Clamp(this Color value, Color min, Color max)
+        {
+            value.A = Math.Min(max.A, Math.Max(min.A, value.A));
+            value.R = Math.Min(max.R, Math.Max(min.R, value.R));
+            value.G = Math.Min(max.G, Math.Max(min.G, value.G));
+            value.B = Math.Min(max.B, Math.Max(min.B, value.B));
+
+            return value;
+        }
+
+        public static Color Add(this Color color1, Color color2)
+        {
+            color1.A += color2.A;
+            color1.R += color2.R;
+            color1.G += color2.G;
+            color1.B += color2.B;
+
+            return color1;
+        }
+
+        public static Color Substract(this Color color1, Color color2)
+        {
+            color1.A -= color2.A;
+            color1.R -= color2.R;
+            color1.G -= color2.G;
+            color1.B -= color2.B;
+
+            return color1;
+        }
+
+        public static Color Multiply(this Color color1, Color color2)
+        {
+            color1.A *= color2.A;
+            color1.R *= color2.R;
+            color1.G *= color2.G;
+            color1.B *= color2.B;
+
+            return color1;
+        }
+
+        public static Color Multiply(this Color color1, double d)
+        {
+            color1.A = (byte)(((int)color1.A) * d);
+            color1.R = (byte)(((int)color1.R) * d);
+            color1.G = (byte)(((int)color1.G) * d);
+            color1.B = (byte)(((int)color1.B) * d);
+
+            return color1;
+        }
+
 		private static byte[] GetColorBytes (this String hexString)
 		{
 

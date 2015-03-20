@@ -42,11 +42,12 @@ namespace Sparkle.Engine.Samples
 
 			this.World.Camera.Position.Acceleration = new Vector3(0,0,1);
             this.World.Camera.Position.MaxVelocity = new Vector3(0, 0, 1);
-            var maxValue = this.World.Camera.Position.MaxValue;
-            maxValue.Z = 2;
+            var maxValue = new Vector3(500, 500, 2);
             this.World.Camera.Position.MaxValue = maxValue;
 
 			this.World.Controllers.Add (new GuyController (hero));
+
+            this.World.Background.Value = Color.CornflowerBlue;
 
 			base.Initialize ();
 		}
