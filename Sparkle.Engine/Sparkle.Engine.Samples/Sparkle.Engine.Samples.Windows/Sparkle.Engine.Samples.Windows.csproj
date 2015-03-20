@@ -1,0 +1,79 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{FDDA2F57-B85D-407A-9521-35AF5D917A0E}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Sparkle.Engine.Samples.Windows</RootNamespace>
+    <AssemblyName>Sparkle.Engine.Samples.Windows</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MonoGamePlatform>Windows</MonoGamePlatform>
+    <MonoGameContentBuilderExe>
+    </MonoGameContentBuilderExe>
+    <NuGetPackageImportStamp>e331eaf0</NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Windows\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Windows\Release\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Sparkle.Engine.Windows\Sparkle.Engine.Windows.csproj">
+      <Project>{5c2ed901-c73a-4731-99c5-fce04d6ee48d}</Project>
+      <Name>Sparkle.Engine.Windows</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <Import Project="..\Sparkle.Engine.Samples.Shared\Sparkle.Engine.Samples.Shared.projitems" Label="Shared" Condition="Exists('..\Sparkle.Engine.Samples.Shared\Sparkle.Engine.Samples.Shared.projitems')" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
+  <Import Project="..\..\packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets" Condition="Exists('..\..\packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\MonoGame.Binaries.3.2.0\build\net40\MonoGame.Binaries.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
