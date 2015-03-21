@@ -37,18 +37,24 @@ namespace Sparkle.Engine.Samples
 
 			this.World.RegisterEntity<GreenGuy> ("greenguy");
             this.World.RegisterEntity<OrangeGuy>("orangeguy");
-            this.World.RegisterEntity<Character>("hero");
+            this.World.RegisterEntity("vader", () => new Character("darthvader", this.World));
+            this.World.RegisterEntity("trooper", () => new Character("stormtrooper", this.World)
+            {
+                Speed = 1500,
+            });
 
 			this.World.SpawnEntity ("greenguy", 150, 150);
             this.World.SpawnEntity("orangeguy", 200, 150);
-            var hero = this.World.SpawnEntity("hero", 200, 100) as Character;
+            var hero = this.World.SpawnEntity("vader", 200, 100) as Character;
+            var npc = this.World.SpawnEntity("trooper", 200, 200) as Character;
 
 			this.World.Camera.Position.Acceleration = new Vector3(0,0,1);
             this.World.Camera.Position.MaxVelocity = new Vector3(0, 0, 1);
             var maxValue = new Vector3(500, 500, 2);
             this.World.Camera.Position.MaxValue = maxValue;
 
-			this.World.Controllers.Add (new CharacterController (hero));
+            this.World.Controllers.Add(new CharacterController(hero));
+            this.World.Controllers.Add(new FollowingNpcController(npc,hero));
 
             this.World.Background.Value = Color.CornflowerBlue;
 

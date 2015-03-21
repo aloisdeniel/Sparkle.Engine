@@ -11,6 +11,7 @@
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Controllers\CharacterController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Character.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Controllers\FollowingNpcController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game1.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\ExampleEntity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\GreenGuy.cs" />

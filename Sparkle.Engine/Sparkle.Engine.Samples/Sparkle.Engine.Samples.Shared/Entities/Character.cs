@@ -1,4 +1,5 @@
-﻿using Sparkle.Engine.Core;
+﻿using Microsoft.Xna.Framework;
+using Sparkle.Engine.Core;
 using Sparkle.Engine.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,10 +9,10 @@ namespace Sparkle.Engine.Samples.Shared.Entities
 {
     public class Character : Entity
 	{
-        public Character(World w)
+        public Character(string sprite, World w)
             : base(w)
 		{
-            this.Sprite = this.CreateSprite("hero_steampunk", 128, 192);
+            this.Sprite = this.CreateSprite(sprite, 128, 192);
 
             this.Speed = 1800;
             
@@ -65,7 +66,14 @@ namespace Sparkle.Engine.Samples.Shared.Entities
                 }
             }
         }
-        
+
+        public void Move(Vector3 direction)
+        {
+            direction.Normalize();
+
+            this.Position.Acceleration = direction * Speed;
+        }
+
         public void MoveLeft()
         {
             var acc = this.Position.Acceleration;

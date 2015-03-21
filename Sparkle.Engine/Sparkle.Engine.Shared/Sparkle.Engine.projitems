@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Base\Shapes\IShape.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Shapes\Polygon.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Shapes\Segment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\Triggers\DistanceTrigger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Triggers\ITrigger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Triggers\KeyboardTrigger.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Triggers\MultiTrigger.cs" />
