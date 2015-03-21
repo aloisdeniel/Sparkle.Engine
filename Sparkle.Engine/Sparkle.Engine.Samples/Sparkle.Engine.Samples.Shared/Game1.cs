@@ -48,13 +48,14 @@ namespace Sparkle.Engine.Samples
             var hero = this.World.SpawnEntity("vader", 200, 100) as Character;
             var npc = this.World.SpawnEntity("trooper", 200, 200) as Character;
 
-			this.World.Camera.Position.Acceleration = new Vector3(0,0,1);
-            this.World.Camera.Position.MaxVelocity = new Vector3(0, 0, 1);
-            var maxValue = new Vector3(500, 500, 2);
-            this.World.Camera.Position.MaxValue = maxValue;
+			//this.World.Camera.Position.Acceleration = new Vector3(0,0,1);
+            //this.World.Camera.Position.MaxVelocity = new Vector3(0, 0, 1);
+            //var maxValue = new Vector3(500, 500, 2);
+            //this.World.Camera.Position.MaxValue = maxValue;
 
             this.World.Controllers.Add(new CharacterController(hero));
             this.World.Controllers.Add(new FollowingNpcController(npc,hero));
+            this.World.Controllers.Add(new CameraController(this.World.Camera, hero));
 
             this.World.Background.Value = Color.CornflowerBlue;
 

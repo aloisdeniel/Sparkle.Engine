@@ -16,7 +16,7 @@
 		public Camera (float x, float y, float width, float height)
 		{
 			this.Position.Value = new Microsoft.Xna.Framework.Vector3 (x, y, 1);
-			this.Size = new Size (width, height);
+            this.Size = new Size(width, height);
 		}
 
 		public float Zoom {
@@ -24,6 +24,20 @@
 				return 1.0f / this.Z;
 			}
 		}
+
+        public override Frame Bounds
+        {
+            get
+            {
+                var baseBounds = base.Bounds;
+
+                var center = baseBounds.Center;
+                var w2 = (baseBounds.Width / 2.0f) / this.Zoom;
+                var h2 = (baseBounds.Height / 2.0f) / this.Zoom;
+
+                return new Frame(center.X - w2, center.Y - h2, 2 * w2, 2 * h2);
+            }
+        }
 
 
 		/// <summary>

@@ -10,6 +10,7 @@ namespace Sparkle.Engine.Core
 	using Sparkle.Engine.Core.Entities;
 	using Sparkle.Engine.Core.Controllers;
     using Sparkle.Engine.Base.Dynamics;
+    using Sparkle.Engine.Tools;
 
 	public class World : Entity
 	{
@@ -185,6 +186,8 @@ namespace Sparkle.Engine.Core
 
 			var updated = this.entities.GetObjects (this.UpdateArea);
 
+            this.updateNumber = updated.Count;
+
 			foreach (var entity in updated) {
 
 				//Updates the entity.
@@ -194,6 +197,8 @@ namespace Sparkle.Engine.Core
 				this.entities.Move (entity);
 			}
 		}
+
+        private int updateNumber;
 
 		protected override void DoDraw (Microsoft.Xna.Framework.Graphics.SpriteBatch sb)
 		{
@@ -210,9 +215,16 @@ namespace Sparkle.Engine.Core
 			sb.Begin (SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, this.Camera.Transform);
 
 			if (this.IsDebugging) {
+
+                Console.WriteLine("Updated entities : " + updateNumber);
+                Console.WriteLine("Drawn entities : " + drawn.Count);
+
 				foreach (var entity in drawn) {
 					entity.DrawBounds (sb);
 				}
+
+
+                sb.DrawFrame(Microsoft.Xna.Framework.Color.Chocolate, this.Camera.Bounds);
 			}
 
 			sb.End ();

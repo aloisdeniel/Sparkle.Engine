@@ -93,7 +93,6 @@ namespace Sparkle.Engine.Samples.Shared.Entities
             var acc = this.Position.Acceleration;
             acc.X += Speed;
             this.Position.Acceleration = acc;
-
         }
 
         public void MoveDown()

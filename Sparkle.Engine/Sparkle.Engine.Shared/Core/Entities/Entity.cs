@@ -118,7 +118,7 @@ namespace Sparkle.Engine.Core.Entities
 		/// <value>The size.</value>
 		public Sparkle.Engine.Base.Size Size { get; set; }
 
-		public Frame Bounds {
+		public virtual Frame Bounds {
 			get { 
 				var value = this.AbsolutePosition.Value;
 				return new Frame (

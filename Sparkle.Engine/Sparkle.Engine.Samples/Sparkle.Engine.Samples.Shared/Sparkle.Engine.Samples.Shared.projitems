@@ -9,6 +9,7 @@
     <Import_RootNamespace>Sparkle.Engine.Samples.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Entities\Controllers\CameraController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Controllers\CharacterController.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Character.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Controllers\FollowingNpcController.cs" />
