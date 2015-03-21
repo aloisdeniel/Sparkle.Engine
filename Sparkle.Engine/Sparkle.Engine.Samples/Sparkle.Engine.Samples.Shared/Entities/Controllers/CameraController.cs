@@ -22,9 +22,13 @@ namespace Sparkle.Engine.Samples.Shared.Entities.Controllers
             this.Observed = observed;
             this.Camera = camera;
 
+            var cam = this.Camera.Position.Value;
+            cam.X = observed.X;
+            cam.Y = observed.Y;
+            this.Camera.Position.Value = cam;
             this.Camera.Position.Friction = new Microsoft.Xna.Framework.Vector3(1, 1, 1) * (0.14f);
 
-            var distance = new DistanceTrigger(this.Camera, this.Observed, 100);
+            var distance = new DistanceTrigger(this.Camera, this.Observed, 30,120);
 
             this.AddCommand(Command.Relay.OnInactive("Follow",distance,ObservedIsFar));
         }

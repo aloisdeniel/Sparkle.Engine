@@ -34,16 +34,39 @@ namespace Sparkle.Engine.Samples.Shared.Entities
         {
             base.DoUpdate(gameTime);
 
+            //1. Updates Z order (for a top-down game)
+
+            var position = this.Position.Value;
+            position.Z = -this.Position.Value.Y;
+            this.Position.Value = position;
+
+            //2. Updates moving animation from velocity direction
+
+            this.updateSpriteAnimation();
+        }
+
+        #region Sprite animation
+
+        public const string AnimMoveUp = "MoveUp";
+
+        public const string AnimMoveDown = "MoveDown";
+
+        public const string AnimMoveLeft = "MoveLeft";
+
+        public const string AnimMoveRight = "MoveRight";
+
+        private void updateSpriteAnimation()
+        {
             const double minVelocity = 0.30;
 
             var absX = Math.Abs(this.Position.Velocity.X);
             var absY = Math.Abs(this.Position.Velocity.Y);
 
-            if(absX < minVelocity && absY < minVelocity)
+            if (absX < minVelocity && absY < minVelocity)
             {
                 this.Sprite.StopAnimation();
             }
-            else if(absX > absY)
+            else if (absX > absY)
             {
                 if (this.Position.Velocity.X < 0)
                 {
@@ -66,6 +89,10 @@ namespace Sparkle.Engine.Samples.Shared.Entities
                 }
             }
         }
+
+        #endregion
+
+        #region Moving the character
 
         public void Move(Vector3 direction)
         {
@@ -102,13 +129,7 @@ namespace Sparkle.Engine.Samples.Shared.Entities
             this.Position.Acceleration = acc;
         }
 
-        public const string AnimMoveUp = "MoveUp";
-
-        public const string AnimMoveDown = "MoveDown";
-
-        public const string AnimMoveLeft = "MoveLeft";
-
-        public const string AnimMoveRight = "MoveRight";
+        #endregion
 
 	}
 }

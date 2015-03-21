@@ -9,6 +9,7 @@ namespace Sparkle.Engine.Samples
 	using Sparkle.Engine.Base;
 	using Sparkle.Engine.Samples.Shared.Entities.Controllers;
     using Sparkle.Engine.Samples.Shared.Entities;
+    using Sparkle.Engine.Core.Entities;
 
 	/// <summary>
 	/// This is the main type for your game
@@ -22,6 +23,8 @@ namespace Sparkle.Engine.Samples
 			Content.RootDirectory = "Content";
 		}
 
+        public Character Hero { get; private set; }
+
 		/// <summary>
 		/// Allows the game to perform any initialization it needs to before starting to run.
 		/// This is where it can query for any required services and load any non-graphic
@@ -32,32 +35,48 @@ namespace Sparkle.Engine.Samples
 		{
 			var screen = new Size (this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height);
 
-			this.World = new World (screen.Height, screen.Height, screen);
-			this.World.IsDebugging = true;
+            // 1. Creating World
+
+            this.World = new World(10240, 10240, screen);
+            this.World.IsDebugging = true;
+            this.World.Background.Value = Color.CornflowerBlue;
+
+            // 2. Creating entity factories
 
 			this.World.RegisterEntity<GreenGuy> ("greenguy");
             this.World.RegisterEntity<OrangeGuy>("orangeguy");
             this.World.RegisterEntity("vader", () => new Character("darthvader", this.World));
-            this.World.RegisterEntity("trooper", () => new Character("stormtrooper", this.World)
-            {
-                Speed = 1500,
+            this.World.RegisterEntity("trooper", () => {
+                var character = new Character("stormtrooper", this.World)
+                {
+                    Speed = 1500,
+                };
+
+                this.World.Controllers.Add(new FollowingNpcController(character, this.Hero));
+
+                return character;
             });
 
-			this.World.SpawnEntity ("greenguy", 150, 150);
-            this.World.SpawnEntity("orangeguy", 200, 150);
-            var hero = this.World.SpawnEntity("vader", 200, 100) as Character;
-            var npc = this.World.SpawnEntity("trooper", 200, 200) as Character;
+            // 3. Spawning various entities
 
-			//this.World.Camera.Position.Acceleration = new Vector3(0,0,1);
-            //this.World.Camera.Position.MaxVelocity = new Vector3(0, 0, 1);
-            //var maxValue = new Vector3(500, 500, 2);
-            //this.World.Camera.Position.MaxValue = maxValue;
+            var center = this.World.Bounds.Center;
 
-            this.World.Controllers.Add(new CharacterController(hero));
-            this.World.Controllers.Add(new FollowingNpcController(npc,hero));
-            this.World.Controllers.Add(new CameraController(this.World.Camera, hero));
+            this.Hero = this.World.SpawnEntity("vader", center.X, center.Y) as Character;
 
-            this.World.Background.Value = Color.CornflowerBlue;
+            this.World.SpawnEntity("greenguy", center.X - 150, center.Y - 150);
+            this.World.SpawnEntity("orangeguy", center.X - 200, center.Y - 150);
+
+            const int number = 5;
+            const float interval = 100;
+            for (int i = 0; i < number; i++)
+            {
+                this.World.SpawnEntity("trooper", center.X - ((number * interval) / 2) + i * interval, center.Y + 250);
+            }
+            
+            // 4. Setting up controllers
+
+            this.World.Controllers.Add(new CharacterController(this.Hero));
+            this.World.Controllers.Add(new CameraController(this.World.Camera, this.Hero));
 
 			base.Initialize ();
 		}

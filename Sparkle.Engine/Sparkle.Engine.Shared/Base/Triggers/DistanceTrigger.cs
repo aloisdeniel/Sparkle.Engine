@@ -8,20 +8,34 @@ namespace Sparkle.Engine.Base.Triggers
 {
     public class DistanceTrigger : ITrigger
     {
-        public DistanceTrigger(Entity entity,Entity other ,double distance)
+        public DistanceTrigger(Entity entity,Entity other ,double min) : this(entity,other,min, min)
+        {
+
+        }
+
+        public DistanceTrigger(Entity entity, Entity other, double min, double max)
         {
             this.Entity = entity;
             this.Other = other;
-            this.Distance = distance;
+            this.MinDistance = min;
+            this.MaxDistance = max;
         }
 
-        public double Distance { get; set; }
+        /// <summary>
+        /// Becomes inactive only when other entity's distance from entity is bigger than this value.
+        /// </summary>
+        public double MaxDistance { get; set; }
+
+        /// <summary>
+        /// Becomes active only when other entity's distance from entity is less than this value.
+        /// </summary>
+        public double MinDistance { get; set; }
 
         public Entity Entity { get; private set; }
 
         public Entity Other { get; private set; }
 
-        private double? lastDistance;
+        private TriggerState? lastState;
 
         public TriggerState State
         {
@@ -31,14 +45,18 @@ namespace Sparkle.Engine.Base.Triggers
 
                 TriggerState result = TriggerState.Inactive;
 
-                if (distance < this.Distance && ( lastDistance == null || (double)lastDistance > this.Distance ) )
+                if (distance < this.MinDistance && ( lastState == null || lastState == TriggerState.Inactive ) )
                     result = TriggerState.Started;
-                else if (distance > this.Distance && (lastDistance != null && (double)lastDistance < this.Distance))
+                else if (distance > this.MaxDistance && (lastState == null || lastState == TriggerState.Active))
                     result = TriggerState.Stopped;
-                else if (distance < this.Distance)
+                else if (lastState != null && lastState == TriggerState.Started)
                     result = TriggerState.Active;
+                else if (lastState != null && lastState == TriggerState.Stopped)
+                    result = TriggerState.Inactive;
+                else if (lastState != null)
+                    result = (TriggerState)lastState;
 
-                lastDistance = distance;
+                lastState = result;
 
                 return result;
 
