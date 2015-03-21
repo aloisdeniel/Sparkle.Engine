@@ -4,6 +4,7 @@ using Sparkle.Engine.Core;
 using Sparkle.Engine.Core.Controllers;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace Sparkle.Engine.Samples.Shared.Entities.Controllers
@@ -26,11 +27,11 @@ namespace Sparkle.Engine.Samples.Shared.Entities.Controllers
             cam.X = observed.X;
             cam.Y = observed.Y;
             this.Camera.Position.Value = cam;
-            this.Camera.Position.Friction = new Microsoft.Xna.Framework.Vector3(1, 1, 1) * (0.14f);
+            this.Camera.Position.Friction = observed.Position.Friction;
 
             var distance = new DistanceTrigger(this.Camera, this.Observed, 30,120);
 
-            this.AddCommand(Command.Relay.OnInactive("Follow",distance,ObservedIsFar));
+            this.AddCommand(Command.Relay.OnActiveAndInactive("Follow",distance,ObservedIsFar));
         }
 
         protected override void DoUpdate(GameTime gameTime)
@@ -47,15 +48,24 @@ namespace Sparkle.Engine.Samples.Shared.Entities.Controllers
         public Character Observed { get; set; }
 
         
-        public void ObservedIsFar()
+        public void ObservedIsFar(bool isNear)
         {
             if(this.Mode == CameraMode.Following)
             {
-                var direction = (this.Observed.Position.Value - this.Camera.Position.Value);
-                direction.Z = 0;
-                direction.Normalize();
+                if (!isNear)
+                {
+                    Debug.WriteLine("FAR");
+                    var direction = (this.Observed.Position.Value - this.Camera.Position.Value);
+                    direction.Z = 0;
+                    direction.Normalize();
 
-                this.Camera.Position.Acceleration = direction * Observed.Speed;
+                    this.Camera.Position.Acceleration = direction * Observed.Speed;
+                }
+                else
+                {
+                    Debug.WriteLine("NEAR");
+                    this.Camera.Position.Stop();
+                }
             }
         }
     }

@@ -32,6 +32,8 @@ namespace Sparkle.Engine.Samples.Shared.Entities
 
         protected override void DoUpdate(Microsoft.Xna.Framework.GameTime gameTime)
         {
+            this.Position.Acceleration = this.MovingDirection * Speed;
+
             base.DoUpdate(gameTime);
 
             //1. Updates Z order (for a top-down game)
@@ -94,40 +96,21 @@ namespace Sparkle.Engine.Samples.Shared.Entities
 
         #region Moving the character
 
-        public void Move(Vector3 direction)
-        {
-            direction.Normalize();
+        private Vector3 movingDirection;
 
-            this.Position.Acceleration = direction * Speed;
+        public Vector3 MovingDirection
+        {
+            get { return movingDirection; }
+            set
+            {
+                if(value != Vector3.Zero)
+                    value.Normalize();
+
+                movingDirection = value;
+            }
         }
 
-        public void MoveLeft()
-        {
-            var acc = this.Position.Acceleration;
-            acc.X -= Speed;
-            this.Position.Acceleration = acc;
-        }
 
-        public void MoveUp()
-        {
-            var acc = this.Position.Acceleration;
-            acc.Y -= Speed;
-            this.Position.Acceleration = acc;
-        }
-
-        public void MoveRight()
-        {
-            var acc = this.Position.Acceleration;
-            acc.X += Speed;
-            this.Position.Acceleration = acc;
-        }
-
-        public void MoveDown()
-        {
-            var acc = this.Position.Acceleration;
-            acc.Y += Speed;
-            this.Position.Acceleration = acc;
-        }
 
         #endregion
 

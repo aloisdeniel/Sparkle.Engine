@@ -9,7 +9,6 @@ namespace Sparkle.Engine
 		public const float AccelerationMultiplier = 0.00001f;
 
 		public const float VelocityMultiplier = 0.01f;
-
 	}
 }
 

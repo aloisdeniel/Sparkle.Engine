@@ -30,7 +30,7 @@ namespace Sparkle.Engine.Samples.Shared.Entities.Controllers
 
         protected override void DoUpdate(GameTime gameTime)
         {
-            this.Entity.Position.Acceleration = Vector3.Zero;
+            this.Entity.MovingDirection = Vector3.Zero;
 
             base.DoUpdate(gameTime);
         }
@@ -51,7 +51,7 @@ namespace Sparkle.Engine.Samples.Shared.Entities.Controllers
         {
             if(this.State == FollowingState.Following)
             {
-                this.Entity.Move(this.Observed.Position.Value - this.Entity.Position.Value);
+                this.Entity.MovingDirection = (this.Observed.Position.Value - this.Entity.Position.Value);
             }
         }
     }

@@ -41,7 +41,13 @@ namespace Sparkle.Engine.Base.Triggers
         {
             get {
 
-                var distance = (Other.Position.Value - Entity.Position.Value).Length();
+                var planePos1 = Other.Position.Value;
+                var planePos2 = Entity.Position.Value;
+
+                planePos1.Z = 0;
+                planePos2.Z = 0;
+
+                var distance = (planePos1 - planePos2).Length();
 
                 TriggerState result = TriggerState.Inactive;
 

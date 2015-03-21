@@ -129,7 +129,6 @@
                 this.Velocity = this.AddValues(this.Velocity, this.MultiplyValues(this.Acceleration, 0.5f * Default.AccelerationMultiplier * (float)Math.Pow(time.ElapsedGameTime.Milliseconds, 2)));
                 this.Velocity = this.SubstractValues(this.Velocity, this.MultiplyValues(this.Friction, this.Velocity));
                 this.Value = this.AddValues(this.Value, this.MultiplyValues(this.Velocity, Default.VelocityMultiplier * time.ElapsedGameTime.Milliseconds));
-
             }
         }
 
