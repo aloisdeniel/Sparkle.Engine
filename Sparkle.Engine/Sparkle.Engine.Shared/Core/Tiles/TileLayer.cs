@@ -10,48 +10,21 @@ namespace Sparkle.Engine.Core.Tiles
 {
     public class TileLayer : Sparkle.Engine.Base.IDrawable, ILoadable, IQuadStorable
 	{
-		public TileLayer (TileMap parent, Frame bounds,string texture)
-		{
+		public TileLayer (TileMap parent, Frame bounds,TileSheet sheet)
+        {
+            this.IsVisible = true;
             this.Tiles = new QuadTree<Tile>(bounds);
-            this.tileSources = new Dictionary<string, Rectangle>();
-            this.TextureName = texture;
             this.Parent = parent;
+            this.Sheet = sheet;
 		}
+
+        public TileSheet Sheet { get; set; }
 
         public TileMap Parent { get; private set; }
 
         public QuadTree<Tile> Tiles { get; set; }
 
-        #region Texture
-
-        /// <summary>
-        /// The name of the texture.
-        /// </summary>
-        public String TextureName { get; private set; }
-
-        /// <summary>
-        /// Texture of the sprite.
-        /// </summary>
-        public Texture2D Texture { get; private set; }
-
-        #endregion
-
         #region Tile creation
-
-        private Dictionary<string, Rectangle> tileSources;
-
-        /// <summary>
-        /// Registers a tile sources coordinates with an identier.
-        /// </summary>
-        /// <param name="identifier"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        public void RegisterTile(string identifier, int x, int y, int width = 1, int height = 1)
-        {
-            this.tileSources[identifier] = new Rectangle(x, y, width, height);
-        }
 
         /// <summary>
         /// Create the tile with the identifier at the coordinates.
@@ -61,32 +34,15 @@ namespace Sparkle.Engine.Core.Tiles
         /// <param name="y"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        public void CreateTile(string indentifier, int x, int y, int width = 1, int height = 1)
+        public void AddTile(string identifier, int x, int y, int width = 1, int height = 1)
         {
-            this.CreateTile(this.tileSources[indentifier], x, y,width, height);
-        }
-
-        /// <summary>
-        /// Create the tile with the source area at the coordinates.
-        /// </summary>
-        /// <param name="source"></param>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        public void CreateTile(Rectangle source, int x, int y, int width = 1, int height = 1)
-        {
-            var tile = new Tile(
-                this,
-                (int)(source.X * this.Parent.TileSize.Width),
-                (int)(source.Y * this.Parent.TileSize.Height),
-                (int)(source.Width * this.Parent.TileSize.Width),
-                (int)(source.Height * this.Parent.TileSize.Height));
+            var tile = this.Sheet.CreateTile(identifier);
 
             tile.DestinationCoordinates = new Rectangle(x, y, width, height);
 
             this.Tiles.Add(tile);
         }
+
 
         #endregion
 
@@ -116,7 +72,7 @@ namespace Sparkle.Engine.Core.Tiles
 
         public void LoadContent(Microsoft.Xna.Framework.Content.ContentManager content)
         {
-            this.Texture = content.Load<Texture2D>(TextureName);
+            this.Sheet.LoadContent(content);
         }
         
         public void UnloadContent(Microsoft.Xna.Framework.Content.ContentManager content)
@@ -145,8 +101,6 @@ namespace Sparkle.Engine.Core.Tiles
         {
             if(this.IsVisible)
             {
-                sb.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, SamplerState.LinearWrap, null, null, null, this.Parent.World.Camera.Transform);
-
                 var drawn = this.Tiles.GetObjects(this.Parent.World.Camera.Bounds);
 
                 foreach (var tile in drawn)
@@ -154,7 +108,6 @@ namespace Sparkle.Engine.Core.Tiles
                     tile.Draw(sb);
                 }
 
-                sb.End();
             }
         }
     }

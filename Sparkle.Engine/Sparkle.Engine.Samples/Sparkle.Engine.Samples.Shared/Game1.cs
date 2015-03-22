@@ -10,6 +10,7 @@ namespace Sparkle.Engine.Samples
 	using Sparkle.Engine.Samples.Shared.Entities.Controllers;
     using Sparkle.Engine.Samples.Shared.Entities;
     using Sparkle.Engine.Core.Entities;
+    using Sparkle.Engine.Core.Tiles;
 
 	/// <summary>
 	/// This is the main type for your game
@@ -40,6 +41,21 @@ namespace Sparkle.Engine.Samples
             this.World = new World(10240, 10240, screen);
             this.World.IsDebugging = true;
             this.World.Background.Value = Color.CornflowerBlue;
+
+            // 2. Setting up tiles
+
+            var sheet = new TileSheet("tileset", 128 / 8, 128 / 8);
+            sheet.RegisterTile("test", 0, 0);
+            sheet.RegisterTile("test2", 1, 0);
+            sheet.RegisterTile("test3", 4, 0);
+
+            var layer = this.World.Tiles.CreateLayer(sheet);
+
+            layer.AddTile("test", 1, 1);
+            layer.AddTile("test", 1, 2);
+            layer.AddTile("test", 2, 3);
+            layer.AddTile("test2", 3, 3);
+            layer.AddTile("test3", 4, 4);
 
             // 2. Creating entity factories
 
@@ -80,9 +96,5 @@ namespace Sparkle.Engine.Samples
 
 			base.Initialize ();
 		}
-
-
-
-
 	}
 }

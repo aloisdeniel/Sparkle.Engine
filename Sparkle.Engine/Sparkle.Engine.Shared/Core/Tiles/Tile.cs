@@ -8,13 +8,14 @@
 
     public class Tile : Sparkle.Engine.Base.IDrawable, IQuadStorable
 	{
-		public Tile (TileLayer parent,int x, int y, int width, int height)
+		public Tile (TileSheet parent,int x, int y, int width, int height)
 		{
+            this.IsVisible = true;
             this.Parent = parent;
-			this.SourceArea = new Rectangle (0, 0, width, height);
+			this.SourceArea = new Rectangle (x, y, width, height);
 		}
 
-        public TileLayer Parent { get; private set; }
+        public TileSheet Parent { get; private set; }
 
         #region Coordinates
 

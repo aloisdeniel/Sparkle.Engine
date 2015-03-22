@@ -11,6 +11,7 @@ namespace Sparkle.Engine.Core
 	using Sparkle.Engine.Core.Controllers;
     using Sparkle.Engine.Base.Dynamics;
     using Sparkle.Engine.Tools;
+    using Sparkle.Engine.Core.Tiles;
 
 	public class World : Entity
 	{
@@ -20,7 +21,7 @@ namespace Sparkle.Engine.Core
 		/// <param name="width">Width.</param>
 		/// <param name="height">Height.</param>
 		/// <param name="cameraSize">Camera size.</param>
-		public World (float width, float height, Size cameraSize)
+        public World (float width, float height, Size cameraSize)
 		{
             this.Background = new DynamicColor(Color.Black);
 			this.Controllers = new List<IController> ();
@@ -28,8 +29,11 @@ namespace Sparkle.Engine.Core
 			this.Size = new Size (width, height);
 			this.entities = new EntityTree (this.Bounds);
 			this.Camera = new Camera (width / 2, height / 2, cameraSize.Width, cameraSize.Height);
-			this.entityPrototypes = new Dictionary<string, Func<Entity>> ();
+            this.entityPrototypes = new Dictionary<string, Func<Entity>>();
+            this.Tiles = new TileMap(this, this.Bounds);
 		}
+
+        public TileMap Tiles { get; private set; }
 
 		/// <summary>
 		/// Gets the bounds in which entities of the world are updated (if no size had been precised the entire world is updated).
@@ -152,6 +156,11 @@ namespace Sparkle.Engine.Core
 		{
 			base.LoadContent (content);
 
+            if (this.Tiles != null)
+            {
+                this.Tiles.LoadContent(content);
+            }
+
 			var allentities = this.entities.GetAllObjects ();
 
 			foreach (var entity in allentities) {
@@ -161,7 +170,12 @@ namespace Sparkle.Engine.Core
 
 		public override void UnloadContent (Microsoft.Xna.Framework.Content.ContentManager content)
 		{
-			base.UnloadContent (content);
+            base.UnloadContent(content);
+
+            if (this.Tiles != null)
+            {
+                this.Tiles.UnloadContent(content);
+            }
 
 			var allentities = this.entities.GetAllObjects ();
 
@@ -202,6 +216,17 @@ namespace Sparkle.Engine.Core
 
 		protected override void DoDraw (Microsoft.Xna.Framework.Graphics.SpriteBatch sb)
 		{
+            // 1. Tiles
+
+            if(this.Tiles != null)
+            {
+                sb.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, this.MainSamplerState, null, null, null, this.Camera.Transform);
+                this.Tiles.Draw(sb);
+                sb.End();
+            }
+
+            // 2. Entities
+
 			sb.Begin (SpriteSortMode.BackToFront, BlendState.AlphaBlend, this.MainSamplerState, null, null, null, this.Camera.Transform);
 
 			var drawn = this.entities.GetObjects (this.Camera.Bounds);
@@ -212,9 +237,11 @@ namespace Sparkle.Engine.Core
 
 			sb.End ();
 
-			sb.Begin (SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, this.Camera.Transform);
+            // 2. Debugging tools
 
-			if (this.IsDebugging) {
+            if (this.IsDebugging)
+            {
+                sb.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, this.Camera.Transform);
 
                 Console.WriteLine("Updated entities : " + updateNumber);
                 Console.WriteLine("Drawn entities : " + drawn.Count);
@@ -223,13 +250,10 @@ namespace Sparkle.Engine.Core
 					entity.DrawBounds (sb);
 				}
 
-
                 sb.DrawFrame(Microsoft.Xna.Framework.Color.Chocolate, this.Camera.Bounds);
+
+                sb.End();
 			}
-
-			sb.End ();
-
-
 		}
 	}
 }

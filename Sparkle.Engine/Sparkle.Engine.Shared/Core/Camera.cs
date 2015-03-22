@@ -38,8 +38,7 @@
                 return new Frame(center.X - w2, center.Y - h2, 2 * w2, 2 * h2);
             }
         }
-
-
+        
 		/// <summary>
 		/// Gets the world transform matrix for this camera.
 		/// </summary>

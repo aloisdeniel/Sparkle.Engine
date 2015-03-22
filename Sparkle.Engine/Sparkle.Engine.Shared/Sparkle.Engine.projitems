@@ -43,6 +43,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\Tiles\Tile.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Tiles\TileLayer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Tiles\TileMap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Tiles\TileSheet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Extensions\MathExtensions.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Camera.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\World.cs" />

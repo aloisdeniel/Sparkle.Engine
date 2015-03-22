@@ -8,18 +8,14 @@ namespace Sparkle.Engine.Core.Tiles
 {
     public class TileMap : Sparkle.Engine.Base.IDrawable, ILoadable, IQuadStorable
 	{
-		public TileMap (World parent, Frame bounds, string texture, int layers, int tileWidth, int tileHeight)
-		{
+		public TileMap (World parent, Frame bounds)
+        {
+            this.IsVisible = true;
             this.World = parent;
-            this.Layers = new TileLayer[Math.Max(1,layers)];
-            this.TileSize = new Size(tileWidth, tileHeight);
-            for (int i = 0; i < this.Layers.Length; i++)
-            {
-                this.Layers[i] = new TileLayer(this, bounds, texture);
-            }
+            this.Layers = new List<TileLayer>();
 		}
 
-        public TileLayer[] Layers { get; private set; }
+        public List<TileLayer> Layers { get; private set; }
 
         public World World { get; set; }
 
@@ -35,6 +31,18 @@ namespace Sparkle.Engine.Core.Tiles
         {
             get;
             set;
+        }
+
+        public TileLayer CreateLayer(TileSheet sheet)
+        {
+            var layer = new TileLayer(this, this.Bounds, sheet);
+            this.Layers.Add(layer);
+            return layer;
+        }
+
+        public TileLayer GetLayer(int index)
+        {
+            return this.Layers[index];
         }
 
         public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb)
@@ -60,12 +68,10 @@ namespace Sparkle.Engine.Core.Tiles
         {
 
         }
-
-
-        
+                
         public Frame Bounds
         {
-            get { return this.Layers[0].Bounds; }
+            get { return this.Layers.Count == 0 ? new Frame() : this.Layers[0].Bounds; } // TODO : get max of all layers
         }
     }
 }
