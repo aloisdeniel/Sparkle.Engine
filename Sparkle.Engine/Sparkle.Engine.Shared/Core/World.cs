@@ -29,7 +29,7 @@ namespace Sparkle.Engine.Core
 			this.Size = new Size (width, height);
 			this.entities = new EntityTree (this.Bounds);
 			this.Camera = new Camera (width / 2, height / 2, cameraSize.Width, cameraSize.Height);
-            this.entityPrototypes = new Dictionary<string, Func<Entity>>();
+            this.entityPrototypes = new Dictionary<int, Func<Entity>>();
             this.Tiles = new TileMap(this, this.Bounds);
 		}
 
@@ -84,7 +84,7 @@ namespace Sparkle.Engine.Core
 		/// <summary>
 		/// The entity prototypes.
 		/// </summary>
-		private Dictionary<string, Func<Entity>> entityPrototypes;
+		private Dictionary<int, Func<Entity>> entityPrototypes;
 
 
 		public List<IController> Controllers { get; private set; }
@@ -95,14 +95,14 @@ namespace Sparkle.Engine.Core
 		/// <returns>The entity.</returns>
 		/// <param name="name">Name.</param>
 		/// <param name="entity">Entity.</param>
-		public void RegisterEntity (string name, Func<Entity> entity)
+        public void RegisterEntity(int identifier, Func<Entity> entity)
 		{
-			this.entityPrototypes [name] = () => this.AddEntity (entity ());
+			this.entityPrototypes [identifier] = () => this.AddEntity (entity ());
 		}
 
-		public void RegisterEntity<E> (string name) where E : Entity
+        public void RegisterEntity<E>(int identifier) where E : Entity
 		{
-			this.RegisterEntity (name, () => (Entity)Activator.CreateInstance (typeof(E), new object[] { this }));
+			this.RegisterEntity (identifier, () => (Entity)Activator.CreateInstance (typeof(E), new object[] { this }));
 		}
 
 		/// <summary>
@@ -110,12 +110,12 @@ namespace Sparkle.Engine.Core
 		/// </summary>
 		/// <returns>The entity.</returns>
 		/// <param name="name">Name.</param>
-		public Entity SpawnEntity (string name, float x, float y)
+		public Entity SpawnEntity (int identifier, float x, float y)
 		{
-			if (!this.entityPrototypes.ContainsKey (name))
+			if (!this.entityPrototypes.ContainsKey (identifier))
 				return null;
 
-			var entity = this.entityPrototypes [name] ();
+			var entity = this.entityPrototypes [identifier] ();
 			entity.Position.Value = new Vector3 (x, y, 0);
 
 			return entity;

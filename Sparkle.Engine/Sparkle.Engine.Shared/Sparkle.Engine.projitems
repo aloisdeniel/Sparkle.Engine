@@ -21,6 +21,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\IAnimation{T}.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\IDynamic{T}.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\IDynamicAnimation{T}.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\Identifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\RepeatMode.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Shapes\Circle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Shapes\Frame.cs" />

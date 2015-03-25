@@ -11,7 +11,7 @@
     {
         public TileSheet(string texture, int tileWidth, int tileHeight)
         {
-            this.tileSources = new Dictionary<string, Rectangle>();
+            this.tileSources = new Dictionary<int, Rectangle>();
             this.TextureName = texture;
             this.TileSize = new Size(tileWidth, tileHeight);
 		}
@@ -45,7 +45,7 @@
 
         public Size TileSize { get; set; }
 
-        private Dictionary<string, Rectangle> tileSources;
+        private Dictionary<int, Rectangle> tileSources;
 
         /// <summary>
         /// Registers a tile sources coordinates with an identier.
@@ -55,7 +55,7 @@
         /// <param name="y"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        public void RegisterTile(string identifier, int x, int y, int width = 1, int height = 1)
+        public void RegisterTile(int identifier, int x, int y, int width = 1, int height = 1)
         {
             this.tileSources[identifier] = new Rectangle(x, y, width, height);
         }
@@ -64,7 +64,7 @@
         /// Create the tile with the identifier at the coordinates.
         /// </summary>
         /// <param name="indentifier"></param>
-        public Tile CreateTile(string indentifier)
+        public Tile CreateTile(int indentifier)
         {
             return this.CreateTile(this.tileSources[indentifier]);
         }

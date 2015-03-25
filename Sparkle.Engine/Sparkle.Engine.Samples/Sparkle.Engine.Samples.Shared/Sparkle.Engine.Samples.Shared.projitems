@@ -17,5 +17,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Entities\ExampleEntity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\GreenGuy.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\OrangeGuy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Identifiers\Id.cs" />
   </ItemGroup>
 </Project>

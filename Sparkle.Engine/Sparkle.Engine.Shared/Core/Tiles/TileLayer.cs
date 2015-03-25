@@ -34,7 +34,7 @@ namespace Sparkle.Engine.Core.Tiles
         /// <param name="y"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        public void AddTile(string identifier, int x, int y, int width = 1, int height = 1)
+        public void AddTile(int identifier, int x, int y, int width = 1, int height = 1)
         {
             var tile = this.Sheet.CreateTile(identifier);
 
