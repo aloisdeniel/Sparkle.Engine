@@ -9,7 +9,8 @@
 		{
 			t = t.Clamp (0.0f, 1.0f);
 			var r = (1 - t);
-			return r * r * p0 + 2 * t * r * p1 + t * t * p2;
+            var result = r * r * p0 + 2 * t * r * p1 + t * t * p2;
+			return result;
 		}
 
 		public static long Clamp (this long value, long min, long max)

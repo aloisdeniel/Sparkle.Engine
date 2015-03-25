@@ -30,9 +30,14 @@
 			var easeIn = (mode == Mode.EaseIn || mode == Mode.EaseInOut) && time <= 0.5f;
 			var easeOut = (mode == Mode.EaseOut || mode == Mode.EaseInOut) && time > 0.5f;
 
-			if (easeIn || easeOut) {
-				return time.Quadratic (0.0f, 0.5f, 1.0f);
+			if (easeIn) {
+                return (time * time * 2);
 			}
+            else if (easeOut)
+            {
+                var t = (1.0f - time);
+                return 1.0f - (t * t * 2);
+            }
 
 			return time.Clamp (0.0f, 1.0f);
 		}

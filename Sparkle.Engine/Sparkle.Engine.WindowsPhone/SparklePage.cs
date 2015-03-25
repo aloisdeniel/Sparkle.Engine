@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Controls;
 
 namespace Sparkle.Engine.WindowsPhone
 {
-    public class SparklePage<T> : SwapChainBackgroundPanel where T : Game, new()
+    public class SparklePage<T> : SwapChainBackgroundPanel where T : SparkleGame, new()
     {
         protected T Game { get; private set;}
 

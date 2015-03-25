@@ -79,6 +79,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="SparkleApplication.cs" />
     <Compile Include="SparklePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

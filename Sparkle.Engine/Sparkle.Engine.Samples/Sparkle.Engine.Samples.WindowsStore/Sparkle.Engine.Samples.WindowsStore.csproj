@@ -4,20 +4,20 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{2BF8BEE3-EB9B-43C9-80CF-AC0560170A06}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{9B4EA520-2E7A-4B5A-B5CB-74B086ECD0AB}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sparkle.Engine.WindowsStore</RootNamespace>
-    <AssemblyName>Sparkle.Engine.WindowsStore</AssemblyName>
+    <RootNamespace>Sparkle.Engine.Samples.WindowsStore</RootNamespace>
+    <AssemblyName>Sparkle.Engine.Samples.WindowsStore</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformVersion>8.1</TargetPlatformVersion>
     <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <PackageCertificateKeyFile>Sparkle.Engine.Samples.WindowsStore_TemporaryKey.pfx</PackageCertificateKeyFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -27,6 +27,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -101,26 +102,73 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Sparkle.Engine.WindowsPhone\SparkleApplication.cs">
-      <Link>SparkleApplication.cs</Link>
-    </Compile>
-    <Compile Include="..\Sparkle.Engine.WindowsPhone\SparklePage.cs">
-      <Link>SparklePage.cs</Link>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+    <Content Include="..\Sparkle.Engine.Samples.Windows\Content\bin\Windows\darthvader.xnb">
+      <Link>Content\darthvader.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Sparkle.Engine.Samples.Windows\Content\bin\Windows\gradient.xnb">
+      <Link>Content\gradient.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Sparkle.Engine.Samples.Windows\Content\bin\Windows\hero_steampunk.xnb">
+      <Link>Content\hero_steampunk.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Sparkle.Engine.Samples.Windows\Content\bin\Windows\profilepic.xnb">
+      <Link>Content\profilepic.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Sparkle.Engine.Samples.Windows\Content\bin\Windows\spritesheet.xnb">
+      <Link>Content\spritesheet.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Sparkle.Engine.Samples.Windows\Content\bin\Windows\stormtrooper.xnb">
+      <Link>Content\stormtrooper.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Sparkle.Engine.Samples.Windows\Content\bin\Windows\tileset.xnb">
+      <Link>Content\tileset.xnb</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Include="packages.config" />
+    <None Include="Sparkle.Engine.Samples.WindowsStore_TemporaryKey.pfx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Logo.scale-100.png" />
+    <Content Include="Assets\SmallLogo.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\StoreLogo.scale-100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="MonoGame.Framework">
-      <HintPath>..\packages\MonoGame.Framework.Windows8.3.3.0.0\lib\netcore\MonoGame.Framework.dll</HintPath>
+      <HintPath>..\..\packages\MonoGame.Framework.Windows8.3.3.0.0\lib\netcore\MonoGame.Framework.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <ProjectReference Include="..\..\Sparkle.Engine.WindowsStore\Sparkle.Engine.WindowsStore.csproj">
+      <Project>{2bf8bee3-eb9b-43c9-80cf-ac0560170a06}</Project>
+      <Name>Sparkle.Engine.WindowsStore</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
-  <Import Project="..\Sparkle.Engine.Shared\Sparkle.Engine.projitems" Label="Shared" Condition="Exists('..\Sparkle.Engine.Shared\Sparkle.Engine.projitems')" />
+  <Import Project="..\Sparkle.Engine.Samples.Shared\Sparkle.Engine.Samples.Shared.projitems" Label="Shared" Condition="Exists('..\Sparkle.Engine.Samples.Shared\Sparkle.Engine.Samples.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
