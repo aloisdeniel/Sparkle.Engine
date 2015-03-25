@@ -29,6 +29,12 @@
         <!-- Windows (.NET 4.0) -->
         <file src=".\lib\net4\Sparkle.Engine.Windows.dll" target="lib\net4\Sparkle.Engine.Windows.dll" />
 
+        <!-- Windows Phone 8.1 -->
+        <file src=".\lib\wpa81\Sparkle.Engine.Windows.dll" target="lib\wpa81\Sparkle.Engine.Windows.dll" />
+
+        <!-- Windows Store 8.1 -->
+        <file src=".\lib\win81\Sparkle.Engine.Windows.dll" target="lib\win81\Sparkle.Engine.Windows.dll" />
+
     </files>
     
 </package>

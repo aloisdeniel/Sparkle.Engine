@@ -242,10 +242,7 @@ namespace Sparkle.Engine.Core
             if (this.IsDebugging)
             {
                 sb.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, null, null, null, null, this.Camera.Transform);
-
-                Console.WriteLine("Updated entities : " + updateNumber);
-                Console.WriteLine("Drawn entities : " + drawn.Count);
-
+                
 				foreach (var entity in drawn) {
 					entity.DrawBounds (sb);
 				}

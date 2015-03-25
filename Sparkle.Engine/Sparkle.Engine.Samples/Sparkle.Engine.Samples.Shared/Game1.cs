@@ -37,7 +37,7 @@ namespace Sparkle.Engine.Samples
 		protected override void Initialize ()
 		{
 			var screen = new Size (this.GraphicsDevice.Viewport.Width, this.GraphicsDevice.Viewport.Height);
-            
+
             // 1. Creating World
 
             this.World = new World(10240, 10240, screen);
