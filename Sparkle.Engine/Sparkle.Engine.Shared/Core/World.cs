@@ -29,7 +29,7 @@ namespace Sparkle.Engine.Core
 			this.Size = new Size (width, height);
 			this.entities = new EntityTree (this.Bounds);
 			this.Camera = new Camera (width / 2, height / 2, cameraSize.Width, cameraSize.Height);
-            this.entityPrototypes = new Dictionary<int, Func<Entity>>();
+            this.entityPrototypes = new Dictionary<Enum, Func<Entity>>();
             this.Tiles = new TileMap(this, this.Bounds);
 		}
 
@@ -84,7 +84,7 @@ namespace Sparkle.Engine.Core
 		/// <summary>
 		/// The entity prototypes.
 		/// </summary>
-		private Dictionary<int, Func<Entity>> entityPrototypes;
+		private Dictionary<Enum, Func<Entity>> entityPrototypes;
 
 
 		public List<IController> Controllers { get; private set; }
@@ -95,12 +95,12 @@ namespace Sparkle.Engine.Core
 		/// <returns>The entity.</returns>
 		/// <param name="name">Name.</param>
 		/// <param name="entity">Entity.</param>
-        public void RegisterEntity(int identifier, Func<Entity> entity)
+        public void RegisterEntity(Enum identifier, Func<Entity> entity)
 		{
 			this.entityPrototypes [identifier] = () => this.AddEntity (entity ());
 		}
 
-        public void RegisterEntity<E>(int identifier) where E : Entity
+        public void RegisterEntity<E>(Enum identifier) where E : Entity
 		{
 			this.RegisterEntity (identifier, () => (Entity)Activator.CreateInstance (typeof(E), new object[] { this }));
 		}
@@ -110,7 +110,7 @@ namespace Sparkle.Engine.Core
 		/// </summary>
 		/// <returns>The entity.</returns>
 		/// <param name="name">Name.</param>
-		public Entity SpawnEntity (int identifier, float x, float y)
+        public Entity SpawnEntity(Enum identifier, float x, float y)
 		{
 			if (!this.entityPrototypes.ContainsKey (identifier))
 				return null;

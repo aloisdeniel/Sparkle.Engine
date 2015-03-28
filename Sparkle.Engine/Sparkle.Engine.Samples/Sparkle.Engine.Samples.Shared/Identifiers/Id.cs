@@ -7,19 +7,19 @@ namespace Sparkle.Engine.Samples.Shared.Identifiers
 {
     public static class Id
     {
-        public static class Tile
+        public enum Tile
         {
-            public static int Tile1 = Identifier.Generate();
-            public static int Tile2 = Identifier.Generate();
-            public static int Tile3 = Identifier.Generate();
+            Tile1,
+            Tile2,
+            Tile3,
         }
 
-        public static class Entities
+        public enum Entities
         {
-            public static int Vader = Identifier.Generate();
-            public static int StormTrooper = Identifier.Generate();
-            public static int OrangeGuy = Identifier.Generate();
-            public static int GreenGuy = Identifier.Generate();
+            Vader,
+            StormTrooper,
+            OrangeGuy,
+            GreenGuy,
         }
     }
 }
