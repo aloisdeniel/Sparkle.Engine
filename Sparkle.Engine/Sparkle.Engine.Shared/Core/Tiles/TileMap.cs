@@ -13,6 +13,7 @@ namespace Sparkle.Engine.Core.Tiles
             this.IsVisible = true;
             this.World = parent;
             this.Layers = new List<TileLayer>();
+            this.Bounds = bounds;
 		}
 
         public List<TileLayer> Layers { get; private set; }
@@ -20,6 +21,8 @@ namespace Sparkle.Engine.Core.Tiles
         public World World { get; set; }
 
         public Size TileSize { get; set; }
+
+        public Frame Bounds { get; private set; }
 
         public bool IsVisible
         {
@@ -68,11 +71,7 @@ namespace Sparkle.Engine.Core.Tiles
         {
 
         }
-                
-        public Frame Bounds
-        {
-            get { return this.Layers.Count == 0 ? new Frame() : this.Layers[0].Bounds; } // TODO : get max of all layers
-        }
+        
     }
 }
 

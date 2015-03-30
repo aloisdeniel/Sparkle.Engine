@@ -107,7 +107,6 @@ namespace Sparkle.Engine.Core.Tiles
                 {
                     tile.Draw(sb);
                 }
-
             }
         }
     }
