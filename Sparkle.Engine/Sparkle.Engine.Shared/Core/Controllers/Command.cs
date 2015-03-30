@@ -1,10 +1,11 @@
 ﻿namespace Sparkle.Engine.Core.Controllers
 {
-	using Sparkle.Engine.Base;
-	using Sparkle.Engine.Base.Triggers;
-	using System;
-	using System.Collections.Generic;
-	using System.Text;
+    using Microsoft.Xna.Framework;
+    using Sparkle.Engine.Base;
+    using Sparkle.Engine.Base.Triggers;
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
 
 	/// <summary>
 	/// Represents a set actions that are executed according to the state of a trigger.
@@ -42,6 +43,11 @@
 
 		protected override void DoUpdate (Microsoft.Xna.Framework.GameTime gameTime)
 		{
+            if(this.Trigger is IUpdateable)
+            {
+                ((IUpdateable)this.Trigger).Update(gameTime);
+            }
+
 			var state = this.Trigger.State;
 
 			switch (state) {

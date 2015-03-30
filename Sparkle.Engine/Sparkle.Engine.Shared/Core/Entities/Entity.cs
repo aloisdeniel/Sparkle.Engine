@@ -59,6 +59,15 @@ namespace Sparkle.Engine.Core.Entities
 			get { return this.Position.Value.X; }
 		}
 
+        /// <summary>
+        /// Indicates whether this entity has been removed from the world.
+        /// </summary>
+        public bool IsAlive
+        {
+            get;
+            private set;
+        }
+
 		/// <summary>
 		/// Gets the y component value of the current position.
 		/// </summary>
@@ -265,12 +274,13 @@ namespace Sparkle.Engine.Core.Entities
 		}
 
 		/// <summary>
-		/// Kill this entity and all its children.
+		/// Kills this entity and all its children.
 		/// </summary>
 		public void Kill ()
 		{
 			if (World != null) {
 				this.World.RemoveEntity (this);
+                this.IsAlive = false;
 			}
 
 			foreach (var child in this.Children) {
