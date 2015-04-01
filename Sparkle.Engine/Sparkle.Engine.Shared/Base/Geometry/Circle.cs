@@ -1,4 +1,4 @@
-﻿namespace Sparkle.Engine.Base.Shapes
+﻿namespace Sparkle.Engine.Base.Geometry
 {
 	using System;
 	using Microsoft.Xna.Framework;

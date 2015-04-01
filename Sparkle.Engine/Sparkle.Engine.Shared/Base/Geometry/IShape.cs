@@ -1,9 +1,9 @@
-﻿namespace Sparkle.Engine.Base.Shapes
+﻿namespace Sparkle.Engine.Base.Geometry
 {
     using System;
     using Sparkle.Engine.Base;
     using Microsoft.Xna.Framework;
-    using Sparkle.Engine.Base.Shapes;
+    using Sparkle.Engine.Base.Geometry;
 
     /// <summary>
     /// Representation of a geometrical shape.
