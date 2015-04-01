@@ -10,6 +10,11 @@ namespace Sparkle.Engine.Core.Components
     public class Sprite : Component
     {
         /// <summary>
+        /// Bounding box of the instance. It can be used to optimize drawn areas.
+        /// </summary>
+        public Frame Bounds { get; set; }
+
+        /// <summary>
         /// Path to the texture.
         /// </summary>
         public String TextureName { get; set; }
