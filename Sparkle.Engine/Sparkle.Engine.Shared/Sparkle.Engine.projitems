@@ -9,75 +9,25 @@
     <Import_RootNamespace>Sparkle.Engine</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\Dynamic.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\Dynamic2.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\Dynamic3.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\DynamicAnimation.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\DynamicAnimation2.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\DynamicAnimation3.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\DynamicAnimationComposite{T}.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\DynamicBase{T}.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\DynamicColor.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\IAnimation{T}.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\IDynamic{T}.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Dynamics\IDynamicAnimation{T}.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Identifier.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\RepeatMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\IInitializable.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\IUpdateable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Shapes\Circle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Shapes\Frame.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Shapes\IShape.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Shapes\Polygon.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\Shapes\Segment.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Triggers\DistanceTrigger.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Triggers\ITrigger.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Triggers\KeyboardTrigger.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Triggers\MultiTrigger.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Triggers\TapTrigger.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Controllers\Command.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Controllers\Controller.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Controllers\ICommand.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Controllers\IController.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Rotation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Color.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Component.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Position.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Sprite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entities\Entity.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Entities\EntityTree.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Entities\Sprite.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Entities\SpriteAnimation.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Tiles\Tile.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Tiles\TileLayer.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Tiles\TileMap.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Tiles\TileSheet.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\MathExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Camera.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\World.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Systems\Graphics.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Systems\Movement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Systems\System.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Default.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\UIElement.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\UIGrid.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\UILabel.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Margin.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Size.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Curve.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\UpdatableBase.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\IDrawable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\ILoadable.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\QuadTree.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\UILayout.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\UIButton.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\VerticalAlignment.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\HorizontalAlignment.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Extensions\ColorExtensions.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)UI\UIParser.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Visibility.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Physics\Body.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Physics\BoxBody.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Physics\CircleBody.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Tools\FrameCounter.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Tools\Primitives.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\SparkleGame.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Triggers\TriggerState.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Extensions\" />
-    <Folder Include="$(MSBuildThisFileDirectory)UI\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Physics\" />
-    <Folder Include="$(MSBuildThisFileDirectory)Tools\" />
   </ItemGroup>
 </Project>

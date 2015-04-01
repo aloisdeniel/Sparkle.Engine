@@ -100,12 +100,7 @@
 		/// Represents the bottom left verticle.
 		/// </summary>
 		public Vector2 BottomLeft { get { return new Vector2 (X, Y + this.Height); } }
-
-		/// <summary>
-		/// The size of this frame.
-		/// </summary>
-		public Size Size { get { return new Size (Width, Height); } }
-
+        
 		/// <summary>
 		/// Conversion to a rectangle with integer values.
 		/// </summary>

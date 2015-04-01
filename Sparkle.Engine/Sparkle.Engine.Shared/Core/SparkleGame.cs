@@ -1,37 +1,51 @@
-﻿using System;
-using Microsoft.Xna.Framework;
-using Sparkle.Engine.Tools;
-using Sparkle.Engine.Core;
-using Microsoft.Xna.Framework.Graphics;
-
-namespace Sparkle.Engine
+﻿namespace Sparkle.Engine
 {
+    using System;
+    using Microsoft.Xna.Framework;
+    using Sparkle.Engine.Core;
+    using Microsoft.Xna.Framework.Graphics;
+    using System.Collections.Generic;
+    using System.Linq;
+    using Sparkle.Engine.Base;
+
 	public class SparkleGame : Game
 	{
 		public SparkleGame ()
-		{
+        {
+            this.Systems = new List<Core.Systems.System>();
+            this.Graphics = new GraphicsDeviceManager(this);
 		}
 
-		public World World { get; protected set; }
+        public GraphicsDeviceManager Graphics { get; protected set; }
 
-		public GraphicsDeviceManager Graphics { get; protected set; }
+        public SpriteBatch SpriteBatch { get; protected set; }
 
-		public SpriteBatch SpriteBatch { get; protected set; }
+        public List<Core.Systems.System> Systems { get; private set; }
 
-		private FrameCounter Fps = new FrameCounter ();
+        protected override void Initialize()
+        {
+            base.Initialize();
+
+            foreach (var system in this.Systems.OfType<IInitializable>())
+            {
+                system.Initialize();
+            }
+        }
 
 		/// <summary>
 		/// LoadContent will be called once per game and is the place to load
 		/// all of your content.
 		/// </summary>
 		protected override void LoadContent ()
-		{
-			SpriteBatch = new SpriteBatch (GraphicsDevice);
+        {
+            this.SpriteBatch = new SpriteBatch(this.GraphicsDevice);
 
-			Primitives.LoadContent (GraphicsDevice);
+            foreach (var system in this.Systems.OfType<ILoadable>())
+            {
+                system.LoadContent(this.Content);
+            }
 
-			if (this.World != null)
-				this.World.LoadContent (this.Content);
+            base.LoadContent();
 		}
 
 		/// <summary>
@@ -39,9 +53,13 @@ namespace Sparkle.Engine
 		/// all content.
 		/// </summary>
 		protected override void UnloadContent ()
-		{
-			if (this.World != null)
-				this.World.UnloadContent (this.Content);
+        {
+            foreach (var system in this.Systems.OfType<ILoadable>())
+            {
+                system.UnloadContent(this.Content);
+            }
+
+            base.UnloadContent();
 		}
 
 		/// <summary>
@@ -51,9 +69,10 @@ namespace Sparkle.Engine
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Update (GameTime gameTime)
 		{
-
-			if (this.World != null)
-				this.World.Update (gameTime);
+            foreach (var system in this.Systems.OfType<Base.IUpdateable>())
+            {
+                system.Update(gameTime);
+            }
 
 			base.Update (gameTime);
 		}
@@ -64,20 +83,12 @@ namespace Sparkle.Engine
 		/// <param name="gameTime">Provides a snapshot of timing values.</param>
 		protected override void Draw (GameTime gameTime)
 		{
+            base.Draw(gameTime);
 
-			if (this.World != null)
+            foreach (var system in this.Systems.OfType<Base.IDrawable>())
             {
-                GraphicsDevice.Clear(this.World.Background.Value);
-                this.World.Draw(SpriteBatch);
+                system.Draw(this.SpriteBatch);
             }
-            else
-            {
-                GraphicsDevice.Clear(Color.CornflowerBlue);
-            }
-
-			this.Fps.Draw (this.SpriteBatch, gameTime);
-
-			base.Draw (gameTime);
 		}
 	}
 }
