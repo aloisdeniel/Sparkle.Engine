@@ -6,6 +6,12 @@ namespace Sparkle.Engine.Core.Systems
     /// </summary>
     public abstract class System
     {
+        public System(SparkleGame game)
+        {
+            this.Game = game;
+            this.IsEnabled = true;
+        }
+
         public SparkleGame Game { get; set; }
 
         /// <summary>

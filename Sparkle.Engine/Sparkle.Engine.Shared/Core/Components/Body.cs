@@ -9,6 +9,8 @@
         {
             this.GravityScale = 1;
             this.Mass = 1;
+            this.Forces = Vector3.Zero;
+            this.Velocity = Vector3.Zero;
         }
 
         /// <summary>

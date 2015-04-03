@@ -11,8 +11,10 @@ namespace Sparkle.Engine.Core.Entities
     {
         public Camera()
         {
-            this.AddComponent<Transform>();
+            var transform = this.AddComponent<Transform>();
+            transform.Position = new Vector3(0, 0, 1);
         }
+
 
         public float Zoom
         {

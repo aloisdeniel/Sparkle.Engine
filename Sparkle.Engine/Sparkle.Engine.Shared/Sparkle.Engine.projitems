@@ -32,6 +32,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entities\Camera.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entities\Entity.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Scene.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Systems\Behaviors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Systems\Graphics.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Systems\Inputs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Systems\Physics.cs" />

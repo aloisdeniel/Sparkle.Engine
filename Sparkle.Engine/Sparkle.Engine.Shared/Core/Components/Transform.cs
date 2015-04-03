@@ -14,6 +14,7 @@
             this.children = new List<Transform>();
             this.Scale = new Vector3(1, 1, 1);
             this.Color = new Color(255, 255, 255, 255);
+            this.Position = Vector3.Zero;
         }
 
         #region Fields

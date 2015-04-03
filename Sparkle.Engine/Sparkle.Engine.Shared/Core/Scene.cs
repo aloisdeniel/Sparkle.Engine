@@ -5,15 +5,22 @@ using System.Text;
 using System.Linq;
 using System.Collections.ObjectModel;
 using Sparkle.Engine.Core.Entities;
+using Microsoft.Xna.Framework;
 
 namespace Sparkle.Engine.Core
 {
     public class Scene
     {
-        public Scene()
+        public Scene(SparkleGame game)
         {
+            this.Game = game;
+            this.Camera = new Camera();
             this.entities = new List<Entity>();
+            this.AddEntity(this.Camera);
+            this.BackgroundColor = Color.CornflowerBlue;
         }
+
+        public Color BackgroundColor { get; set; }
 
         public SparkleGame Game { get; set; }
 
@@ -44,7 +51,7 @@ namespace Sparkle.Engine.Core
 
         public void AddEntity(Entity entity)
         {
-            this.Entities.Add(entity);
+            this.entities.Add(entity);
 
             foreach (var component in entity.Components)
             {
@@ -57,7 +64,7 @@ namespace Sparkle.Engine.Core
 
         public void RemoveEntity(Entity entity)
         {
-            this.Entities.Remove(entity);
+            this.entities.Remove(entity);
 
             entity.ComponentAttached -= entity_ComponentAttached;
             entity.ComponentDetached -= entity_ComponentDetached;

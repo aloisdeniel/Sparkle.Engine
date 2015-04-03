@@ -4,16 +4,26 @@
     using Microsoft.Xna.Framework;
     using Sparkle.Engine.Core;
     using Microsoft.Xna.Framework.Graphics;
+    using Sparkle.Engine.Base;
+    using Sparkle.Engine.Base.Geometry;
     using System.Collections.Generic;
     using System.Linq;
-    using Sparkle.Engine.Base;
 
 	public class SparkleGame : Game
 	{
 		public SparkleGame ()
         {
-            this.Systems = new List<Core.Systems.System>();
             this.Graphics = new GraphicsDeviceManager(this);
+            this.Systems = new List<Core.Systems.System>();
+
+            // Scene
+            this.Scene = new Scene(this);
+
+            // Base systems
+            this.Systems.Add(new Core.Systems.Inputs(this));
+            this.Systems.Add(new Core.Systems.Behaviors(this));
+            this.Systems.Add(new Core.Systems.Physics(this));
+            this.Systems.Add(new Core.Systems.Graphics(this, new Frame(0, 0, 5048, 5048)));
 		}
 
         public GraphicsDeviceManager Graphics { get; protected set; }
@@ -27,6 +37,9 @@
         protected override void Initialize()
         {
             base.Initialize();
+
+            this.Scene.Camera.Width = this.GraphicsDevice.Viewport.Width;
+            this.Scene.Camera.Height = this.GraphicsDevice.Viewport.Height;
 
             foreach (var system in this.Systems.OfType<IInitializable>())
             {

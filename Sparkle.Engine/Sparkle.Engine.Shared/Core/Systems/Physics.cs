@@ -7,11 +7,17 @@ namespace Sparkle.Engine.Core.Systems
 {
     public class Physics : System, Base.IUpdateable
     {
+        public Physics(SparkleGame game)
+            : base(game)
+        {
+
+        }
+
         public void Update(Microsoft.Xna.Framework.GameTime time)
         {
             var components = this.Game.Scene.GetComponents<Body>();
 
-            var dt = time.ElapsedGameTime.Milliseconds;
+            var dt = (time.ElapsedGameTime.Milliseconds / 2000.0f);
 
             foreach (var body in components)
             {

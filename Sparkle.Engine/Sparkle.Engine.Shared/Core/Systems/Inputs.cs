@@ -10,7 +10,8 @@ namespace Sparkle.Engine.Core.Systems
 {
     public class Inputs : System, Base.IUpdateable
     {
-        public Inputs()
+        public Inputs(SparkleGame game)
+            : base(game)
         {
             keyboard = new List<Input.KeyboardState>();
         }
@@ -55,7 +56,7 @@ namespace Sparkle.Engine.Core.Systems
 
             foreach (var component in components)
             {
-                foreach (var input in component.Keyboard)
+                foreach (var input in component.Commands.OfType<Input.KeyboardState>())
                 {
                     var keyboardInput = this.keyboard.FirstOrDefault((i) => i.Key == input.Key);
                     input.Trigger = keyboardInput == null ? Trigger.Inactive : keyboardInput.Trigger;

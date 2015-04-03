@@ -82,10 +82,11 @@
         /// Creates a component of the given type and attaches a component to the entity.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public void AddComponent<T>() where T : Component
+        public T AddComponent<T>() where T : Component
         {
             var component = (T)Activator.CreateInstance(typeof(T));
             this.AddComponent(component);
+            return component;
         }
 
         /// <summary>

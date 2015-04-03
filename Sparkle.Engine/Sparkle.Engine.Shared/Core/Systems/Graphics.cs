@@ -10,7 +10,7 @@ namespace Sparkle.Engine.Core.Systems
     /// </summary>
     public class Graphics : System, Base.ILoadable, Base.IDrawable, Base.IUpdateable
     {
-        public Graphics(Frame bounds)
+        public Graphics(SparkleGame game, Frame bounds) : base(game)
         {
             this.sprites = new QuadTree<Sprite>(bounds);
         }
@@ -73,6 +73,7 @@ namespace Sparkle.Engine.Core.Systems
             
             foreach (var sprite in components)
             {
+                this.sprites.Add(sprite);
                 sprite.Texture = content.Load<Texture2D>(sprite.TextureName);
             }
 
@@ -82,12 +83,7 @@ namespace Sparkle.Engine.Core.Systems
 
         public void UnloadContent(Microsoft.Xna.Framework.Content.ContentManager content)
         {
-            var components = this.Game.Scene.GetComponents<Sprite>();
-
-            foreach (var sprite in components)
-            {
-                sprite.Texture = content.Load<Texture2D>(sprite.TextureName);
-            }
+            content.Unload();
 
             this.Game.Scene.ComponentAttached -= Scene_ComponentAttached;
             this.Game.Scene.ComponentDetached -= Scene_ComponentDetached;
@@ -95,7 +91,7 @@ namespace Sparkle.Engine.Core.Systems
         
         public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb)
         {
-            // TODO : draw all sprites at their destination
+            this.Game.GraphicsDevice.Clear(this.Game.Scene.BackgroundColor);
 
             sb.Begin(SpriteSortMode.BackToFront, BlendState.AlphaBlend, this.SamplerState, null, null, null, this.Game.Scene.Camera.CreateTransform());
 
