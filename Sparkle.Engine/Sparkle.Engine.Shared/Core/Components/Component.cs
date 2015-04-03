@@ -2,6 +2,7 @@
 {
     using Sparkle.Engine.Base;
     using Sparkle.Engine.Core;
+    using Sparkle.Engine.Core.Entities;
 
     /// <summary>
     /// A component represents the behavior of a world entity. A component can also be seen has a "state" data

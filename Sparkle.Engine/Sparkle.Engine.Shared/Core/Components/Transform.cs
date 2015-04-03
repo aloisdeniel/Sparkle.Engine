@@ -7,7 +7,7 @@
     /// <summary>
     /// A component that represents a general transformation of an entity.
     /// </summary>
-    public class Transform
+    public class Transform : Component
     {
         public Transform()
         {

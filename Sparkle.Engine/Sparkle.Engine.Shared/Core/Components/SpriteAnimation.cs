@@ -26,14 +26,62 @@
         /// </summary>
         public bool IsStarted { get; private set; }
 
+        private double currentTime;
+
         /// <summary>
         /// Current time from begin.
         /// </summary>
-        public double CurrentTime { get; set; }
+        public double CurrentTime
+        {
+            get { return currentTime; }
+            set 
+            { 
+                currentTime = value; 
+                if(this.IsFinished())
+                {
+                    this.IsStarted = false;
+                }
+            }
+        }
 
         /// <summary>
         /// The time interval between two frames.
         /// </summary>
-        public TimeSpan Interval { get; set; }
+        public double Interval { get; set; }
+        
+        private bool IsFinished()
+        {
+            var index = (int)(CurrentTime / this.Interval);
+
+            return ((this.Mode == RepeatMode.Once && index >= this.Steps.Count) ||
+                    (this.Mode == RepeatMode.Reverse && index <= 0) ||
+                    (this.Mode == RepeatMode.OnceWithReverse && index >= 2 * this.Steps.Count));
+        }
+
+        public Rectangle GetSource()
+        {
+            if (this.Steps.Count > 0 && this.IsStarted)
+            {
+                var index = (int)(CurrentTime / this.Interval);
+
+                if (this.Mode == RepeatMode.Once)
+                    index = Math.Min(this.Steps.Count-1,index);
+                else if (this.Mode == RepeatMode.Reverse)
+                    index = this.Steps.Count - index - 1;
+                else if (this.Mode == RepeatMode.Loop)
+                    index %= this.Steps.Count;
+                else if (this.Mode == RepeatMode.LoopWithReverse)
+                    index %= this.Steps.Count * 2;
+
+                if ((this.Mode == RepeatMode.OnceWithReverse || this.Mode == RepeatMode.LoopWithReverse) && index >= this.Steps.Count)
+                {
+                    index = this.Steps.Count * 2 - index - 1;
+                }
+
+                return this.Steps[index];
+            }
+
+            return new Rectangle();
+        }
     }
 }

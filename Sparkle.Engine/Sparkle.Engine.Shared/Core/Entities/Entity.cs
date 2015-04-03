@@ -1,10 +1,11 @@
-﻿namespace Sparkle.Engine.Core
+﻿namespace Sparkle.Engine.Core.Entities
 {
     using Sparkle.Engine.Core.Components;
     using System.Collections.Generic;
     using System.Linq;
     using Sparkle.Engine.Base;
     using System;
+    using System.Collections.ObjectModel;
 
     /// <summary>
     /// Main object in the game. A set of components can be attached to an instance to add behaviors.
@@ -14,21 +15,30 @@
         public Entity ()
         {
             this.Id = Identifier.Generate();
-            this.Components = new List<Component>();
+            this.components = new List<Component>();
         }
 
         /// <summary>
         /// Unique identifier of the entity in the game.
         /// </summary>
         public int Id { get; set; }
-        
+
         #region Components
+
+        private List<Component> components;
+
+        public event EventHandler<ComponentEventArgs> ComponentAttached;
+
+        public event EventHandler<ComponentEventArgs> ComponentDetached;
 
         /// <summary>
         /// All attached components.
         /// </summary>
-        private List<Component> Components { get; private set; }
-
+        public IList<Component> Components
+        {
+            get { return new ReadOnlyCollection<Component>(components); }
+        }
+        
         /// <summary>
         /// Gets all components of a given type.
         /// </summary>
@@ -36,7 +46,7 @@
         /// <returns>A collection of components from the given type (never null).</returns>
         public IEnumerable<T> GetComponents<T>() where T : Component
         {
-            return this.Components.OfType<T>();
+            return this.components.OfType<T>();
         }
 
         /// <summary>
@@ -46,7 +56,7 @@
         /// <returns>The first component of the given type, or null if no component from this type is attached.</returns>
         public T GetComponent<T>() where T : Component
         {
-            return this.Components.FirstOrDefault((c) => c is T) as T;
+            return this.components.FirstOrDefault((c) => c is T) as T;
         }
 
         /// <summary>
@@ -60,9 +70,12 @@
                 component.Owner.RemoveComponent(component);
             }
 
-            this.Components.Add(component);
+            this.components.Add(component);
             component.Owner = this;
             component.Attached();
+
+            if (ComponentAttached != null)
+                this.ComponentAttached(this,new ComponentEventArgs() { Component = component });
         }
 
         /// <summary>
@@ -81,9 +94,12 @@
         /// <param name="component"></param>
         public void RemoveComponent(Component component)
         {
-            this.Components.Remove(component);
+            this.components.Remove(component);
             component.Detached();
             component.Owner = null;
+
+            if (ComponentDetached != null)
+                this.ComponentDetached(this, new ComponentEventArgs() { Component = component });
         }
 
         #endregion

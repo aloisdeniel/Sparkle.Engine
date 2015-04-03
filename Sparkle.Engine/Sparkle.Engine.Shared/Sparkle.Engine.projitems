@@ -9,21 +9,32 @@
     <Import_RootNamespace>Sparkle.Engine</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Base\Animation\RepeatMode.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\Identifier.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\IInitializable.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\IUpdateable.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Shapes\Circle.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Shapes\Frame.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Shapes\IShape.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Shapes\Polygon.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Base\Shapes\Segment.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Rotation.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Color.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\Geometry\Circle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\Geometry\Frame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\Geometry\IShape.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\Geometry\Polygon.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\Geometry\Segment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\QuadTree.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Base\Trigger.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Behavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Bounds.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Component.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Position.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Body.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\ComponentEventArgs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Input.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Sprite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\SpriteAnimation.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Transform.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Entities\Camera.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entities\Entity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Scene.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Systems\Graphics.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Systems\Movement.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Systems\Inputs.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Systems\Physics.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Systems\System.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Default.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Base\IDrawable.cs" />
