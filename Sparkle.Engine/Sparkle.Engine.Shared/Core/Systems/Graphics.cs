@@ -13,6 +13,7 @@ namespace Sparkle.Engine.Core.Systems
         public Graphics(SparkleGame game, Frame bounds) : base(game)
         {
             this.sprites = new QuadTree<Sprite>(bounds);
+            this.SamplerState = SamplerState.PointClamp;
         }
 
         public SamplerState SamplerState { get; set; }
@@ -50,7 +51,7 @@ namespace Sparkle.Engine.Core.Systems
                 var width = sprite.Width * transform.Scale.X;
                 var height = sprite.Height * transform.Scale.Y;
 
-                sprite.Order = transform.Position.Y;
+                sprite.Order = -transform.Position.Y;
                 sprite.Color = transform.Color;
                 sprite.Angle = transform.Rotation;
                 sprite.DestinationArea = new Frame(transform.Position.X, transform.Position.Y, width, height);

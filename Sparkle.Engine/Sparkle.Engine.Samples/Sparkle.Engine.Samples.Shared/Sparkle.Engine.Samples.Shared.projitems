@@ -9,7 +9,9 @@
     <Import_RootNamespace>Sparkle.Engine.Samples.Shared</Import_RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)Components\MoveBehavior.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\Follower.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\MovingSprite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\InputMovement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Character.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Game1.cs" />
   </ItemGroup>

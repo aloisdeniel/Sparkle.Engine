@@ -5,6 +5,9 @@ namespace Sparkle.Engine.Samples
 	using Sparkle.Engine.Core;
     using Sparkle.Engine.Base;
     using Sparkle.Engine.Samples.Shared.Entities;
+    using Sparkle.Engine.Samples.Shared.Components;
+    using Sparkle.Engine.Core.Components;
+    using Microsoft.Xna.Framework.Input;
 
     /// <summary>
     /// This is the main type for your game
@@ -15,9 +18,22 @@ namespace Sparkle.Engine.Samples
         {
             Content.RootDirectory = "Content";
 
-            var character = new Character(10, 10);
+            // Vader
+            var vader = new Character("darthvader", 10, 10);
+            var inputs = vader.AddComponent<Input>();
+            inputs.ObserveKey(InputMovement.UpCommand, Keys.Up);
+            inputs.ObserveKey(InputMovement.DownCommand, Keys.Down);
+            inputs.ObserveKey(InputMovement.RightCommand, Keys.Right);
+            inputs.ObserveKey(InputMovement.LeftCommand, Keys.Left);
+            vader.AddComponent<InputMovement>();
+            this.Scene.AddEntity(vader);
 
-            this.Scene.AddEntity(character);
+            // Stormtrooper
+            var stormtrooper = new Character("stormtrooper", 100, 100);
+            var npc = stormtrooper.AddComponent<Follower>();
+            npc.Target = vader.GetComponent<Body>();
+            this.Scene.AddEntity(stormtrooper);
+
         }
 
     }
