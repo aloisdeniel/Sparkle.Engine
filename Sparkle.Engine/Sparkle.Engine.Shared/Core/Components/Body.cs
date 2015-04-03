@@ -3,7 +3,7 @@
     using Microsoft.Xna.Framework;
     using Sparkle.Engine.Base.Geometry;
 
-    public class Body : Component
+    public class Body : Transform
     {
         public Body()
         {
@@ -17,19 +17,9 @@
         public Frame Bounds { get; set; }
 
         /// <summary>
-        /// Gets or sets the position of the body.
-        /// </summary>
-        public Vector3 Position { get; set; }
-
-        /// <summary>
         /// Gets or sets the velocity of the position.
         /// </summary>
         public Vector3 Velocity { get; set; }
-
-        /// <summary>
-        /// Gets or sets the angle of rotation of the body.
-        /// </summary>
-        public float Rotation { get; set; }
 
         /// <summary>
         /// Gets or sets the velocity of the rotation.

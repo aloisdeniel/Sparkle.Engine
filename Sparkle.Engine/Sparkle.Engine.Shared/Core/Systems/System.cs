@@ -5,6 +5,8 @@
     /// </summary>
     public abstract class System
     {
+        public SparkleGame Game { get; set; }
+
         /// <summary>
         /// Indicates whether the instance should be updated or not.
         /// </summary>

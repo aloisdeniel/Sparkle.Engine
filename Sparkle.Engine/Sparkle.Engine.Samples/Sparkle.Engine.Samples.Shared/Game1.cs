@@ -3,8 +3,7 @@ namespace Sparkle.Engine.Samples
 	using Microsoft.Xna.Framework;
 	using Microsoft.Xna.Framework.Graphics;
 	using Sparkle.Engine.Core;
-	using Sparkle.Engine.Base;
-    using Sparkle.Engine.Core.Entities;
+    using Sparkle.Engine.Base;
 
 	/// <summary>
 	/// This is the main type for your game

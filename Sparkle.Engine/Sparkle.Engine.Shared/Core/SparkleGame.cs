@@ -22,6 +22,8 @@
 
         public List<Core.Systems.System> Systems { get; private set; }
 
+        public Scene Scene { get; set; }
+
         protected override void Initialize()
         {
             base.Initialize();
