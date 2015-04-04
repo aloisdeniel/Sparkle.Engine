@@ -26,11 +26,16 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Body.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\ComponentEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Input.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Sprite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\SpriteRenderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\SpriteAnimation.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Transform.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entities\Camera.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Entities\Entity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Managers\EntityManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Managers\ResourceManager.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Resources\Resource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Resources\Sprite.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Resources\Spritesheet.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Scene.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Systems\Behaviors.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Systems\Graphics.cs" />

@@ -2,13 +2,14 @@
 using Microsoft.Xna.Framework.Graphics;
 using Sparkle.Engine.Base;
 using Sparkle.Engine.Base.Geometry;
+using Sparkle.Engine.Core.Resources;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Sparkle.Engine.Core.Components
 {
-    public class Sprite : Component, IQuadStorable
+    public class SpriteRenderer : Component, IQuadStorable
     {
         private float? height;
 
@@ -40,15 +41,10 @@ namespace Sparkle.Engine.Core.Components
         public Color Color { get; set; }
 
         /// <summary>
-        /// Path to the texture.
+        /// The rendered sprite.
         /// </summary>
-        public String TextureName { get; set; }
-
-        /// <summary>
-        /// The texture object if loaded.
-        /// </summary>
-        public Texture2D Texture { get; set; }
-        
+        public Sprite Sprite { get; set; }
+                
         /// <summary>
         /// Sub area of the screen where the sprite is drawn.
         /// </summary>
@@ -124,10 +120,10 @@ namespace Sparkle.Engine.Core.Components
         /// </summary>
         private void InitializeSize()
         {
-            if (this.Texture != null)
+            if (this.Sprite != null && this.Sprite.Texture != null)
             {
-                this.Width = this.Texture.Width;
-                this.Height = this.Texture.Height;
+                this.Width = this.Sprite.Texture.Width;
+                this.Height = this.Sprite.Texture.Height;
             }
             else
             {
@@ -149,9 +145,9 @@ namespace Sparkle.Engine.Core.Components
         /// </summary>
         private void InitializeSourceArea()
         {
-            if (this.Texture != null)
+            if (this.Sprite != null && this.Sprite.Texture != null)
             {
-                this.SourceArea = new Rectangle(0,0,this.Texture.Width,this.Texture.Height);
+                this.SourceArea = new Rectangle(0, 0, this.Sprite.Texture.Width, this.Sprite.Texture.Height);
             }
             else
             {

@@ -3,7 +3,9 @@
     using Microsoft.Xna.Framework;
     using Sparkle.Engine.Base.Animation;
     using Sparkle.Engine.Base.Geometry;
+    using Sparkle.Engine.Core.Resources;
     using System;
+    using System.Linq;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -14,27 +16,35 @@
     {
         public SpriteAnimation()
         {
-            this.Animations = new Dictionary<string, List<Rectangle>>();
+
         }
 
         public string CurrentAnimation { get; set; }
+        
+        private Spritesheet sheet;
+
+        public Spritesheet Sheet
+        {
+            get { return sheet; }
+            set { 
+                sheet = value;
+                if (this.CurrentAnimation == null && sheet.Animations.Keys.Count > 0)
+                    this.CurrentAnimation = sheet.Animations.Keys.ElementAt(0);
+            }
+        }
+
 
         public List<Rectangle> Steps { 
             get
             {
-                if(!this.Animations.ContainsKey(this.CurrentAnimation))
+                if(this.CurrentAnimation == null || !this.Sheet.Animations.ContainsKey(this.CurrentAnimation))
                 {
                     return new List<Rectangle>();
                 }
 
-                return this.Animations[this.CurrentAnimation];
+                return this.Sheet.Animations[this.CurrentAnimation];
             }
         }
-
-        /// <summary>
-        /// All the animation steps.
-        /// </summary>
-        public Dictionary<string, List<Rectangle>> Animations { get; set; }
 
         /// <summary>
         /// The repeat mode for the animation.
@@ -129,23 +139,6 @@
             this.currentTime = 0;
             this.Mode = mode;
             this.IsStarted = true;
-        }
-
-        public void Add(string name, int width, int height, params Point[] steps)
-        {
-            var stepRects = new List<Rectangle>();
-
-            foreach (var point in steps)
-            {
-                stepRects.Add(new Rectangle(point.X * width, point.Y * height, width, height));
-            }
-
-            this.Animations[name] = stepRects;
-
-            if(String.IsNullOrEmpty(this.CurrentAnimation))
-            {
-                this.CurrentAnimation = name;
-            }
         }
     }
 }

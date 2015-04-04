@@ -20,10 +20,8 @@ namespace Sparkle.Engine.Core.Systems
         public void Update(Microsoft.Xna.Framework.GameTime time)
         {
             this.UpdateKeyboard();
-
-           
-
         }
+
         #region Keyboard
 
         private List<Input.KeyboardState> keyboard;

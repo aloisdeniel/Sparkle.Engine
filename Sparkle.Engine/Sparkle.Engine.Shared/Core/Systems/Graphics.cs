@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Sparkle.Engine.Base;
 using Sparkle.Engine.Base.Geometry;
 using Sparkle.Engine.Core.Components;
+using Sparkle.Engine.Core.Resources;
 namespace Sparkle.Engine.Core.Systems
 {
     /// <summary>
@@ -12,7 +13,7 @@ namespace Sparkle.Engine.Core.Systems
     {
         public Graphics(SparkleGame game, Frame bounds) : base(game)
         {
-            this.sprites = new QuadTree<Sprite>(bounds);
+            this.sprites = new QuadTree<SpriteRenderer>(bounds);
             this.SamplerState = SamplerState.PointClamp;
         }
 
@@ -22,7 +23,7 @@ namespace Sparkle.Engine.Core.Systems
 
         public void Update(Microsoft.Xna.Framework.GameTime time)
         {
-            var components = this.Game.Scene.GetComponents<Sprite>();
+            var components = this.Game.Scene.GetComponents<SpriteRenderer>();
 
             var dt = time.ElapsedGameTime.Milliseconds;
 
@@ -32,7 +33,7 @@ namespace Sparkle.Engine.Core.Systems
             }
         }
 
-        private void UpdateSprite(Sprite sprite, Microsoft.Xna.Framework.GameTime time)
+        private void UpdateSprite(SpriteRenderer sprite, Microsoft.Xna.Framework.GameTime time)
         {
             var animation = sprite.Owner.GetComponent<SpriteAnimation>();
 
@@ -62,7 +63,7 @@ namespace Sparkle.Engine.Core.Systems
 
         #region Rendering
 
-        private QuadTree<Sprite> sprites;
+        private QuadTree<SpriteRenderer> sprites;
 
         public bool IsVisible { get { return this.IsEnabled; } }
 
@@ -70,24 +71,30 @@ namespace Sparkle.Engine.Core.Systems
 
         public void LoadContent(Microsoft.Xna.Framework.Content.ContentManager content)
         {
-            var components = this.Game.Scene.GetComponents<Sprite>();
+            var resources = this.Game.Scene.ResourceManager.GetResources<Sprite>();
+
+            foreach (var sprite in resources)
+            {
+                sprite.LoadContent(content);
+            }
+
+            var components = this.Game.Scene.GetComponents<SpriteRenderer>();
             
             foreach (var sprite in components)
             {
                 this.sprites.Add(sprite);
-                sprite.Texture = content.Load<Texture2D>(sprite.TextureName);
             }
 
-            this.Game.Scene.ComponentAttached += Scene_ComponentAttached;
-            this.Game.Scene.ComponentDetached += Scene_ComponentDetached;
+            this.Game.Scene.EntityManager.ComponentAttached += Scene_ComponentAttached;
+            this.Game.Scene.EntityManager.ComponentDetached += Scene_ComponentDetached;
         }
 
         public void UnloadContent(Microsoft.Xna.Framework.Content.ContentManager content)
         {
             content.Unload();
 
-            this.Game.Scene.ComponentAttached -= Scene_ComponentAttached;
-            this.Game.Scene.ComponentDetached -= Scene_ComponentDetached;
+            this.Game.Scene.EntityManager.ComponentAttached -= Scene_ComponentAttached;
+            this.Game.Scene.EntityManager.ComponentDetached -= Scene_ComponentDetached;
         }
         
         public void Draw(Microsoft.Xna.Framework.Graphics.SpriteBatch sb)
@@ -100,7 +107,7 @@ namespace Sparkle.Engine.Core.Systems
 
             foreach (var sprite in drawn)
             {
-                sb.Draw(sprite.Texture,
+                sb.Draw(sprite.Sprite.Texture,
                 sprite.DestinationArea.Rectangle,
                 sprite.SourceArea,
                 sprite.Color,
@@ -117,17 +124,17 @@ namespace Sparkle.Engine.Core.Systems
         
         private void Scene_ComponentAttached(object sender, ComponentEventArgs e)
         {
-            if (e.Component is Sprite)
+            if (e.Component is SpriteRenderer)
             {
-                this.sprites.Add(e.Component as Sprite);
+                this.sprites.Add(e.Component as SpriteRenderer);
             }
         }
 
         private void Scene_ComponentDetached(object sender, ComponentEventArgs e)
         {
-            if(e.Component is Sprite)
+            if(e.Component is SpriteRenderer)
             {
-                this.sprites.Remove(e.Component as Sprite);
+                this.sprites.Remove(e.Component as SpriteRenderer);
             }
         }
     }

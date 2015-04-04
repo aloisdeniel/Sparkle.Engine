@@ -15,9 +15,7 @@ namespace Sparkle.Engine.Core.Systems
         public void Update(Microsoft.Xna.Framework.GameTime time)
         {
             var components = this.Game.Scene.GetComponents<Behavior>();
-
-            var dt = time.ElapsedGameTime.Milliseconds;
-
+            
             foreach (var behavior in components)
             {
                 behavior.Update(time);
