@@ -14,7 +14,6 @@ namespace Sparkle.Engine.Samples.Shared.Entities
     {
         public Character(Spritesheet sprite, float x, float y)
         {
-
             var renderer = this.AddComponent<SpriteRenderer>();
             renderer.Sprite = sprite;
             renderer.Width = 32;

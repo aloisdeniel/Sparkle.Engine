@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using Sparkle.Engine.Core.Components;
+using System.Diagnostics;
 
 namespace Sparkle.Engine.Core.Systems
 {
@@ -40,10 +41,15 @@ namespace Sparkle.Engine.Core.Systems
                 };
             }).ToList();
 
-            foreach (var item in this.keyboard.Where((i) => !inputs.Contains(i)))
+            Debug.WriteLine("HOT : " + this.keyboard.Count);
+
+            foreach (var item in this.keyboard.Where((i) => null == inputs.FirstOrDefault((i2) => i.Key == i2.Key)))
             {
-                item.Trigger = Trigger.Stopped;
-                inputs.Add(item);
+                if (item.Trigger == Trigger.Started || item.Trigger == Trigger.Active)
+                {
+                    item.Trigger = Trigger.Stopped;
+                    inputs.Add(item);
+                }
             }
 
             this.keyboard = inputs;

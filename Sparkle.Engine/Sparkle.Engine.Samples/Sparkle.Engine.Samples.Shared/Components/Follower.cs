@@ -15,7 +15,7 @@ namespace Sparkle.Engine.Samples.Shared.Components
 
         public float Speed { get; set; }
 
-        public Body Target { get; set; }
+        public Transform Target { get; set; }
 
         public override void Update(Microsoft.Xna.Framework.GameTime time)
         {

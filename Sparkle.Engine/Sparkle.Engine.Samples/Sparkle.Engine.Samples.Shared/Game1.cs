@@ -33,6 +33,9 @@ namespace Sparkle.Engine.Samples
             inputs.ObserveKey(InputMovement.LeftCommand, Keys.Left);
             vader.AddComponent<InputMovement>();
             this.Scene.EntityManager.AddEntity(vader);
+
+            var cam = this.Scene.Camera.AddComponent<FollowingCamera>();
+            cam.Target = vader.GetComponent<Body>();
             
         }
 
@@ -57,7 +60,7 @@ namespace Sparkle.Engine.Samples
 
             ms += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if(ms > 3000)
+            if(ms > 500)
             {
                 ms = 0;
                 this.SpawnStormtrooper(random.Next(-400, 400), random.Next(-400, 400));

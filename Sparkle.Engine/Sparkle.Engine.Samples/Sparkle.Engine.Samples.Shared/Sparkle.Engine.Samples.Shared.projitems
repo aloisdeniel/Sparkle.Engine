@@ -10,6 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)Components\Follower.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Components\FollowingCamera.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\MovingSprite.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Components\InputMovement.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Entities\Character.cs" />
