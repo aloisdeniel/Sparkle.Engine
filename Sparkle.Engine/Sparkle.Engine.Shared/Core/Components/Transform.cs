@@ -255,7 +255,6 @@
                 if(position != value)
                 {
                     position = value; 
-                    this.HasPositionChanged = true;
                 }
             }
         }
@@ -277,7 +276,6 @@
                 if (scale != value)
                 {
                     scale = value;
-                    this.HasScaleChanged = true;
                 }
             }
         }
@@ -299,7 +297,6 @@
                 if (rotation != value)
                 {
                     rotation = value;
-                    this.HasRotationChanged = true;
                 }
             }
         }
@@ -318,7 +315,6 @@
                 if (color != value)
                 {
                     color = value;
-                    this.HasColorChanged = true;
                 }
             }
         }
@@ -342,7 +338,7 @@
             var sin = Math.Sin(rotation);
 
             this.position.X += (float)(this.LocalPosition.X * cos - this.LocalPosition.Y * sin);
-            this.position.Y += (float)(this.LocalPosition.Y * sin + this.LocalPosition.X * cos);
+            this.position.Y += (float)(this.LocalPosition.Y * cos + this.LocalPosition.X * sin);
             this.position.Z += this.LocalPosition.Z;
 
             this.HasPositionChanged = false;

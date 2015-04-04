@@ -30,6 +30,10 @@ namespace Sparkle.Engine.Core.Systems
             foreach (var sprite in components)
             {
                 this.UpdateSprite(sprite, time);
+
+                //Updates the quad tree after a potential bounds modification.
+                //TODO : improve -> move only modified bounds with flag
+                this.sprites.Move(sprite);
             }
         }
 

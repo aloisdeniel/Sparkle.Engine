@@ -49,7 +49,7 @@
         /// <summary>
         /// The repeat mode for the animation.
         /// </summary>
-        public RepeatMode Mode { get; set; }
+        public Repeat.Mode Mode { get; set; }
 
         /// <summary>
         /// Indicates whether the animation is running.
@@ -81,11 +81,8 @@
         
         private bool IsFinished()
         {
-            var index = (int)(CurrentTime / this.Interval);
-
-            return ((this.Mode == RepeatMode.Once && index >= this.Steps.Count) ||
-                    (this.Mode == RepeatMode.Reverse && index <= 0) ||
-                    (this.Mode == RepeatMode.OnceWithReverse && index >= 2 * this.Steps.Count));
+            var time = (float)(CurrentTime / this.Interval);
+            return Repeat.IsFinished(this.Mode,time);
         }
 
         public Rectangle GetSource()
@@ -95,22 +92,11 @@
             if (steps.Count == 0)
                 return new Rectangle();
 
-            var index = (int)(CurrentTime / this.Interval);
+            var time = (float)(CurrentTime / (this.Interval * steps.Count));
+            time = Repeat.Calculate(this.Mode, time);
 
-            if (this.Mode == RepeatMode.Once)
-                index = Math.Min(steps.Count - 1, index);
-            else if (this.Mode == RepeatMode.Reverse)
-                index = steps.Count - index - 1;
-            else if (this.Mode == RepeatMode.Loop)
-                index %= steps.Count;
-            else if (this.Mode == RepeatMode.LoopWithReverse)
-                index %= steps.Count * 2;
-
-            if ((this.Mode == RepeatMode.OnceWithReverse || this.Mode == RepeatMode.LoopWithReverse) && index >= steps.Count)
-            {
-                index = steps.Count * 2 - index - 1;
-            }
-            
+            var index = (int)(time * steps.Count);
+                        
             return steps[index];
         }
 
@@ -120,7 +106,7 @@
             this.IsStarted = false;
         }
 
-        public void Play(string name, RepeatMode mode = RepeatMode.Once)
+        public void Play(string name, Repeat.Mode mode = Repeat.Mode.Once)
         {
             if (this.CurrentAnimation != name || !this.IsStarted)
             {
@@ -131,7 +117,7 @@
             }
         }
 
-        public void Play(RepeatMode mode = RepeatMode.Once)
+        public void Play(Repeat.Mode mode = Repeat.Mode.Once)
         {
             if (this.IsStarted)
                 return;

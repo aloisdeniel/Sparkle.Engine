@@ -34,6 +34,36 @@ namespace Sparkle.Engine.Samples
             vader.AddComponent<InputMovement>();
             this.Scene.EntityManager.AddEntity(vader);
 
+            //Transform animation
+            var test = new Character(vaderSprite, 10, 10);
+            var anim = test.AddComponent<TransformAnimation>();
+            anim.AddPosition(TimeSpan.FromSeconds(0), new Vector3(-100, -100, 0));
+            anim.AddPosition(TimeSpan.FromSeconds(1), new Vector3(100, -100, 0),Base.Animation.Curve.Mode.EaseIn);
+            anim.AddPosition(TimeSpan.FromSeconds(2), new Vector3(100, 100, 0), Base.Animation.Curve.Mode.EaseOut);
+            anim.AddPosition(TimeSpan.FromSeconds(3), new Vector3(-100, 100, 0), Base.Animation.Curve.Mode.EaseInOut);
+            anim.AddRotation(TimeSpan.FromSeconds(0), 0);
+            anim.AddRotation(TimeSpan.FromSeconds(3), 6.28f, Base.Animation.Curve.Mode.EaseInOut);
+            anim.AddColor(TimeSpan.FromSeconds(0), Color.White);
+            anim.AddColor(TimeSpan.FromSeconds(3), Color.Red, Base.Animation.Curve.Mode.EaseInOut);
+            anim.Play(Base.Animation.Repeat.Mode.LoopWithReverse);
+            this.Scene.EntityManager.AddEntity(test);
+            
+            //Relative Transform animation
+            var test2 = new Character(stormtrooperSprite, 0, 0);
+            var transform = test2.GetComponent<Transform>();
+            transform.Parent = test.GetComponent<Transform>();
+            anim = test2.AddComponent<TransformAnimation>();
+            anim.AddPosition(TimeSpan.FromSeconds(0), new Vector3(-50, 0, 0));
+            anim.AddPosition(TimeSpan.FromSeconds(1), new Vector3(50, 0, 0), Base.Animation.Curve.Mode.EaseInOut);
+            anim.AddScale(TimeSpan.FromSeconds(0), new Vector3(0.2f, 0.2f, 0.2f));
+            anim.AddScale(TimeSpan.FromSeconds(1), new Vector3(0.5f, 0.5f, 0.5f), Base.Animation.Curve.Mode.EaseInOut);
+            anim.AddRotation(TimeSpan.FromSeconds(0), 0);
+            anim.AddRotation(TimeSpan.FromSeconds(1), 2*6.28f, Base.Animation.Curve.Mode.EaseInOut);
+            anim.AddColor(TimeSpan.FromSeconds(0), Color.White);
+            anim.AddColor(TimeSpan.FromSeconds(1), Color.Blue, Base.Animation.Curve.Mode.EaseInOut);
+            anim.Play(Base.Animation.Repeat.Mode.LoopWithReverse);
+            this.Scene.EntityManager.AddEntity(test2);
+
             var cam = this.Scene.Camera.AddComponent<FollowingCamera>();
             cam.Target = vader.GetComponent<Body>();
             
@@ -60,7 +90,7 @@ namespace Sparkle.Engine.Samples
 
             ms += gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            if(ms > 500)
+            if(ms > 5000)
             {
                 ms = 0;
                 this.SpawnStormtrooper(random.Next(-400, 400), random.Next(-400, 400));

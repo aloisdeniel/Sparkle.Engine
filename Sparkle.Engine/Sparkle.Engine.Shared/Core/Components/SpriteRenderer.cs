@@ -11,6 +11,11 @@ namespace Sparkle.Engine.Core.Components
 {
     public class SpriteRenderer : Component, IQuadStorable
     {
+        public SpriteRenderer()
+        {
+            this.DestinationArea = new Frame(0, 0, 1, 1);
+        }
+
         private float? height;
 
         private float? width;

@@ -38,22 +38,22 @@ namespace Sparkle.Engine.Samples.Shared.Components
                 {
                     if (body.Velocity.X < 0)
                     {
-                        animation.Play(WalkLeftAnim, RepeatMode.Loop);
+                        animation.Play(WalkLeftAnim, Repeat.Mode.Loop);
                     }
                     else if (body.Velocity.X > 0)
                     {
-                        animation.Play(WalkRightAnim, RepeatMode.Loop);
+                        animation.Play(WalkRightAnim, Repeat.Mode.Loop);
                     }
                 }
                 else
                 {
                     if (body.Velocity.Y < 0)
                     {
-                        animation.Play(WalkUpAnim, RepeatMode.Loop);
+                        animation.Play(WalkUpAnim, Repeat.Mode.Loop);
                     }
                     else if (body.Velocity.Y > 0)
                     {
-                        animation.Play(WalkDownAnim, RepeatMode.Loop);
+                        animation.Play(WalkDownAnim, Repeat.Mode.Loop);
                     }
                 }
             }
