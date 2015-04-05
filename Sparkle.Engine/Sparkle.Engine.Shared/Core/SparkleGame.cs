@@ -1,4 +1,8 @@
-﻿namespace Sparkle.Engine
+﻿
+using System.Collections.Generic;
+using System.Linq;
+
+namespace Sparkle.Engine
 {
     using System;
     using Microsoft.Xna.Framework;
@@ -6,8 +10,7 @@
     using Microsoft.Xna.Framework.Graphics;
     using Sparkle.Engine.Base;
     using Sparkle.Engine.Base.Geometry;
-    using System.Collections.Generic;
-    using System.Linq;
+    using Sparkle.Engine.Core.Systems;
 
 	public class SparkleGame : Game
 	{
@@ -90,6 +93,7 @@
             }
 
 			base.Update (gameTime);
+
 		}
 
 		/// <summary>

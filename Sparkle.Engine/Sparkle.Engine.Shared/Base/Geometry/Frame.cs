@@ -16,6 +16,14 @@
 			Height = h;
 		}
 
+        public Frame(Rectangle rect)
+        {
+            X = rect.X;
+            Y = rect.Y;
+            Width = rect.Width;
+            Height = rect.Height;
+        }
+
 		/// <summary>
 		/// Top left X coordinates of the frame.
 		/// </summary>

@@ -9,7 +9,7 @@ using System.Text;
 
 namespace Sparkle.Engine.Core.Components
 {
-    public class SpriteRenderer : Component, IQuadStorable
+    public class SpriteRenderer : Renderer
     {
         public SpriteRenderer()
         {
@@ -27,12 +27,12 @@ namespace Sparkle.Engine.Core.Components
         /// <summary>
         /// The drawing order of the sprite.
         /// </summary>
-        public float Order { get; set; }
+        public override float Order { get; set; }
 
         /// <summary>
         /// Bounding box of the instance. It can be used to optimize drawn areas.
         /// </summary>
-        public Frame Bounds
+        public override Frame Bounds
         {
             get
             {

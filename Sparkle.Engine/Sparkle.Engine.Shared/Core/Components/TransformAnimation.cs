@@ -6,39 +6,16 @@
     using System.Linq;
     using System.Collections.Generic;
     using System.Collections.ObjectModel;
+    using Sparkle.Engine.Core.Resources;
 
     public class TransformAnimation : Component
     {
-        public class Keyframe<T>
-        {
-            public Keyframe(TimeSpan time, T value, Base.Animation.Curve.Mode valueMode = Base.Animation.Curve.Mode.Linear)
-            {
-                this.Time = time;
-                this.Curve = valueMode;
-                this.Value = value;
-            }
-
-            public TimeSpan Time { get; set; }
-
-            public Base.Animation.Curve.Mode Curve { get; set; }
-
-            public T Value { get; set; }
-        }
-
-        public TransformAnimation()
-        {
-            this.CurrentTime = TimeSpan.Zero;
-            this.positions = new List<Keyframe<Vector3>>();
-            this.scales = new List<Keyframe<Vector3>>();
-            this.rotations = new List<Keyframe<float>>();
-            this.colors = new List<Keyframe<Color>>();
-        }
 
         /// <summary>
         /// The repeat mode for the animation.
         /// </summary>
         public Repeat.Mode Repeat { get; set; }
-        
+
         /// <summary>
         /// Indicates whether the animation is running.
         /// </summary>
@@ -46,77 +23,34 @@
 
         public TimeSpan CurrentTime { get; set; }
 
-        private List<Keyframe<Vector3>> positions;
+        public string CurrentAnimation { get; set; }
 
-        private List<Keyframe<Vector3>> scales;
+        private Transforms sheet;
 
-        public List<Keyframe<float>> rotations;
-
-        public List<Keyframe<Color>> colors;
-
-        /// <summary>
-        /// All position keyframes ordered by Time.
-        /// </summary>
-        public IList<Keyframe<Vector3>> Positions
+        public Transforms Sheet
         {
-            get { return new ReadOnlyCollection<Keyframe<Vector3>>(positions); }
+            get { return sheet; }
+            set
+            {
+                sheet = value;
+                if (this.CurrentAnimation == null && sheet.Animations.Keys.Count > 0)
+                    this.CurrentAnimation = sheet.Animations.Keys.ElementAt(0);
+            }
         }
 
-        /// <summary>
-        /// All scale keyframes ordered by Time.
-        /// </summary>
-        public IList<Keyframe<Vector3>> Scales
+
+        public Sparkle.Engine.Core.Resources.Transforms.Animation Animation
         {
-            get { return new ReadOnlyCollection<Keyframe<Vector3>>(scales); }
+            get
+            {
+                if (this.CurrentAnimation == null || !this.Sheet.Animations.ContainsKey(this.CurrentAnimation))
+                {
+                    return null;
+                }
+
+                return this.Sheet.Animations[this.CurrentAnimation];
+            }
         }
-
-        /// <summary>
-        /// All rotation keyframes ordered by Time.
-        /// </summary>
-        public IList<Keyframe<float>> Rotations
-        {
-            get { return new ReadOnlyCollection<Keyframe<float>>(rotations); }
-        }
-
-        /// <summary>
-        /// All color keyframes ordered by Time.
-        /// </summary>
-        public IList<Keyframe<Color>> Colors
-        {
-            get { return new ReadOnlyCollection<Keyframe<Color>>(colors); }
-        }
-
-        #region Adding keyframes
-
-        public void AddPosition(TimeSpan time, Vector3 value, Base.Animation.Curve.Mode valueMode = Base.Animation.Curve.Mode.Linear)
-        {
-            this.addKeyframe(ref this.positions,new Keyframe<Vector3>(time,value,valueMode));
-        }
-
-        public void AddScale(TimeSpan time, Vector3 value, Base.Animation.Curve.Mode valueMode = Base.Animation.Curve.Mode.Linear)
-        {
-            this.addKeyframe(ref this.scales, new Keyframe<Vector3>(time, value, valueMode));
-        }
-
-        public void AddRotation(TimeSpan time, float value, Base.Animation.Curve.Mode valueMode = Base.Animation.Curve.Mode.Linear)
-        {
-            this.addKeyframe(ref this.rotations, new Keyframe<float>(time, value, valueMode));
-        }
-
-        public void AddColor(TimeSpan time, Color value, Base.Animation.Curve.Mode valueMode = Base.Animation.Curve.Mode.Linear)
-        {
-            this.addKeyframe(ref this.colors, new Keyframe<Color>(time, value, valueMode));
-        }
-
-        private void addKeyframe<T>(ref List<Keyframe<T>> list, Keyframe<T> keyframe)
-        {
-            list.Add(keyframe);
-            list = list.OrderBy(item => item.Time).ToList();
-        }
-
-        #endregion
-
-
 
         /// <summary>
         /// The last keyframe time value.
@@ -126,31 +60,36 @@
             get
             {
                 var max = TimeSpan.Zero;
-                
-                if(this.positions.Count > 0)
+
+                var animation = this.Animation;
+
+                if (animation == null)
+                    return max;
+
+                if (animation.Positions.Count > 0)
                 {
-                    var kf = this.positions.Last();
+                    var kf = animation.Positions.Last();
 
                     max = kf == null || kf.Time < max ? max : kf.Time;
                 }
 
-                if (this.scales.Count > 0)
+                if (animation.Scales.Count > 0)
                 {
-                    var kf = this.scales.Last();
+                    var kf = animation.Scales.Last();
 
                     max = kf == null || kf.Time < max ? max : kf.Time;
                 }
 
-                if (this.colors.Count > 0)
+                if (animation.Colors.Count > 0)
                 {
-                    var kfc = this.colors.Last();
+                    var kfc = animation.Colors.Last();
 
                     max = kfc == null || kfc.Time < max ? max : kfc.Time;
                 }
 
-                if (this.rotations.Count > 0)
+                if (animation.Rotations.Count > 0)
                 {
-                    var kfr = this.rotations.Last();
+                    var kfr = animation.Rotations.Last();
 
                     max = kfr == null || kfr.Time < max ? max : kfr.Time;
                 }
@@ -164,8 +103,22 @@
             this.IsStarted = false;
         }
 
+        public void Play(string name, Repeat.Mode mode = Base.Animation.Repeat.Mode.Once)
+        {
+            if (this.CurrentAnimation != name || !this.IsStarted)
+            {
+                this.CurrentAnimation = name;
+                this.CurrentTime = TimeSpan.Zero;
+                this.Repeat = mode;
+                this.IsStarted = true;
+            }
+        }
+
         public void Play(Repeat.Mode mode = Base.Animation.Repeat.Mode.Once)
         {
+            if (this.IsStarted)
+                return;
+
             this.CurrentTime = TimeSpan.Zero;
             this.Repeat = mode;
             this.IsStarted = true;

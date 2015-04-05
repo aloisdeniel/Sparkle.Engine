@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using Microsoft.Xna.Framework;
+using Sparkle.Engine.Core.Resources;
 
 namespace Sparkle.Engine.Core.Systems
 {
@@ -64,14 +65,20 @@ namespace Sparkle.Engine.Core.Systems
             progress = Base.Animation.Repeat.Calculate(animation.Repeat, progress);
             var animationTime = progress * duration.TotalMilliseconds;
 
+
+            var current = animation.Animation;
+
             // Calculating current values
-            this.updateValue(animationTime, animation.Positions, (v) => { if (transform.Parent != null) transform.LocalPosition = v; else transform.Position = v; });
-            this.updateValue(animationTime, animation.Scales, (v) => { if (transform.Parent != null) transform.LocalScale = v; else transform.Scale = v; });
-            this.updateValue(animationTime, animation.Colors, (v) => { if (transform.Parent != null) transform.LocalColor = v; else transform.Color = v; });
-            this.updateValue(animationTime, animation.Rotations, (v) => { if (transform.Parent != null) transform.LocalRotation = v; else transform.Rotation = v; });
+            if(current != null)
+            {
+                this.updateValue(animationTime, current.Positions, (v) => { if (transform.Parent != null) transform.LocalPosition = v; else transform.Position = v; });
+                this.updateValue(animationTime, current.Scales, (v) => { if (transform.Parent != null) transform.LocalScale = v; else transform.Scale = v; });
+                this.updateValue(animationTime, current.Colors, (v) => { if (transform.Parent != null) transform.LocalColor = v; else transform.Color = v; });
+                this.updateValue(animationTime, current.Rotations, (v) => { if (transform.Parent != null) transform.LocalRotation = v; else transform.Rotation = v; });
+            }
         }
 
-        private bool updateValue(double time,  IList<TransformAnimation.Keyframe<Vector3>> keyframes, Action<Vector3> setter)
+        private bool updateValue(double time,  IList<Transforms.Keyframe<Vector3>> keyframes, Action<Vector3> setter)
         {
             if (keyframes.Count == 0)
                 return false;
@@ -94,7 +101,7 @@ namespace Sparkle.Engine.Core.Systems
             return false;
         }
 
-        private bool updateValue(double time, IList<TransformAnimation.Keyframe<float>> keyframes, Action<float> setter)
+        private bool updateValue(double time, IList<Transforms.Keyframe<float>> keyframes, Action<float> setter)
         {
             if (keyframes.Count == 0)
                 return false;
@@ -117,7 +124,7 @@ namespace Sparkle.Engine.Core.Systems
             return false;
         }
 
-        private bool updateValue(double time, IList<TransformAnimation.Keyframe<Color>> keyframes, Action<Color> setter)
+        private bool updateValue(double time, IList<Transforms.Keyframe<Color>> keyframes, Action<Color> setter)
         {
             if (keyframes.Count == 0)
                 return false;
@@ -140,9 +147,9 @@ namespace Sparkle.Engine.Core.Systems
             return false;
         }
 
-        private Tuple<TransformAnimation.Keyframe<T>, TransformAnimation.Keyframe<T>> getKeyframes<T>(double time, IList<TransformAnimation.Keyframe<T>> keyframes)
+        private Tuple<Transforms.Keyframe<T>, Transforms.Keyframe<T>> getKeyframes<T>(double time, IList<Transforms.Keyframe<T>> keyframes)
         {
-            TransformAnimation.Keyframe<T> positionStart = null, positionEnd = null;
+            Transforms.Keyframe<T> positionStart = null, positionEnd = null;
             positionStart = keyframes.LastOrDefault((k) => k.Time.TotalMilliseconds <= time);
             if (positionStart != null)
             {
@@ -154,7 +161,7 @@ namespace Sparkle.Engine.Core.Systems
                 }
             }
 
-            return new Tuple<TransformAnimation.Keyframe<T>, TransformAnimation.Keyframe<T>>(positionStart, positionEnd);
+            return new Tuple<Transforms.Keyframe<T>, Transforms.Keyframe<T>>(positionStart, positionEnd);
         }
 
         #endregion

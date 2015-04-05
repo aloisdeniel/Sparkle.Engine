@@ -8,10 +8,14 @@ namespace Sparkle.Engine.Core.Components
 {
     public abstract class Behavior : Component
     {
-        public virtual void Update(GameTime time)
+        public virtual void PreRender()
         {
 
         }
 
+        public virtual void Update(GameTime time)
+        {
+
+        }
     }
 }

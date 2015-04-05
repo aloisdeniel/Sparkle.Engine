@@ -40,9 +40,7 @@ namespace Sparkle.Engine.Core.Systems
                     Trigger = (prec == null) ? Trigger.Started : Trigger.Active,
                 };
             }).ToList();
-
-            Debug.WriteLine("HOT : " + this.keyboard.Count);
-
+            
             foreach (var item in this.keyboard.Where((i) => null == inputs.FirstOrDefault((i2) => i.Key == i2.Key)))
             {
                 if (item.Trigger == Trigger.Started || item.Trigger == Trigger.Active)

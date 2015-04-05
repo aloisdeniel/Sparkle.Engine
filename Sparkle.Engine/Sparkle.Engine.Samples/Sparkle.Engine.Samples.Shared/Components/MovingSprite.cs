@@ -59,5 +59,24 @@ namespace Sparkle.Engine.Samples.Shared.Components
             }
         }
 
+        public override void PreRender()
+        {
+            base.PreRender();
+
+            var transform = this.Owner.GetComponent<Transform>();
+            var rendered = this.Owner.GetComponent<SpriteRenderer>();
+
+            if (rendered != null && transform != null)
+            {
+                rendered.Order = -transform.Position.Y;
+            }
+
+            var emitter = this.Owner.GetComponent<ParticleEmitter>();
+
+            if (emitter != null && transform != null)
+            {
+                emitter.Order = -transform.Position.Y;
+            }
+        }
     }
 }

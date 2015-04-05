@@ -21,5 +21,6 @@ namespace Sparkle.Engine.Core.Systems
                 behavior.Update(time);
             }
         }
+  
     }
 }
