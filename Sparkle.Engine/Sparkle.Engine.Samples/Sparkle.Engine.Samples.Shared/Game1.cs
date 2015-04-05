@@ -10,6 +10,7 @@ namespace Sparkle.Engine.Samples
     using Microsoft.Xna.Framework.Input;
     using Sparkle.Engine.Core.Resources;
     using System;
+    using Sparkle.Engine.Core.Entities;
 
     /// <summary>
     /// This is the main type for your game
@@ -85,6 +86,38 @@ namespace Sparkle.Engine.Samples
             tanim.Sheet = transforms;
             tanim.Play("small",Base.Animation.Repeat.Mode.LoopWithReverse);
             this.Scene.EntityManager.AddEntity(test2);
+
+            //Test parralax
+            var test3 = new Entity();
+            var renderer = test3.AddComponent<SpriteRenderer>();
+            renderer.Sprite = stormtrooperSprite;
+            renderer.Width = 32;
+            renderer.Height = 48;
+            var animation = test3.AddComponent<SpriteAnimation>();
+            animation.Sheet = stormtrooperSprite;
+            animation.Interval = 200;
+            var body = test3.AddComponent<Transform>();
+            body.Position = new Microsoft.Xna.Framework.Vector3(100, 100, 0);
+            body.Scale = new Vector3(2, 2, 1);
+            test3.AddComponent<Parralax>();
+            this.Scene.EntityManager.AddEntity(test3);
+            test3 = new Entity();
+            renderer = test3.AddComponent<SpriteRenderer>();
+            renderer.Sprite = stormtrooperSprite;
+            renderer.Width = 32;
+            renderer.Height = 48;
+            animation = test3.AddComponent<SpriteAnimation>();
+            animation.Sheet = stormtrooperSprite;
+            animation.Interval = 200;
+            body = test3.AddComponent<Transform>();
+            body.Color = Color.Red;
+            body.Position = new Microsoft.Xna.Framework.Vector3(100, 100, -3);
+            body.Scale = new Vector3(2, 2, 1);
+            var parralax = test3.AddComponent<Parralax>();
+            //parralax.Power = Vector2.UnitX;
+            parralax.Scaling = 8f;
+            this.Scene.EntityManager.AddEntity(test3);
+
 
             var cam = this.Scene.Camera.AddComponent<FollowingCamera>();
             cam.Target = vader.GetComponent<Body>();

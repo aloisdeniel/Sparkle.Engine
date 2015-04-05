@@ -93,6 +93,8 @@ namespace Sparkle.Engine.Core.Systems
                 sprite.SourceArea = animation.GetSource();
             }
 
+            // Regular transform
+
             var transform = sprite.Owner.GetComponent<Transform>();
 
             if (transform != null)
@@ -101,9 +103,43 @@ namespace Sparkle.Engine.Core.Systems
                 var width = sprite.Width * transform.Scale.X;
                 var height = sprite.Height * transform.Scale.Y;
 
+                sprite.Order = -transform.Position.Z;
                 sprite.Color = transform.Color;
                 sprite.Angle = transform.Rotation;
-                sprite.DestinationArea = new Frame(transform.Position.X, transform.Position.Y, width, height);
+                var destination = new Frame(transform.Position.X, transform.Position.Y, width, height);
+
+                // Parralax transform
+
+                var parralax = sprite.Owner.GetComponent<Parralax>();
+                var camTransform = this.Game.Scene.Camera.GetComponent<Transform>();
+
+                if(parralax != null && camTransform != null)
+                {
+                    var distance = camTransform.Position - transform.Position;
+
+                    destination.X += distance.X * transform.Position.Z * 0.1f * parralax.Power.X;
+                    destination.Y += distance.Y * transform.Position.Z * 0.1f * parralax.Power.Y;
+
+                    if(parralax.Scaling != 0)
+                    {
+                        center = destination.Center;
+
+                        var scale = (parralax.Scaling + transform.Position.Z) / parralax.Scaling;
+
+                        if(scale > 0)
+                        {
+                            destination.Width *= scale;
+                            destination.Height *= scale;
+                        }
+                        else
+                        {
+                            destination.Width = 0;
+                            destination.Height = 0;
+                        }
+                    }
+                }
+
+                sprite.DestinationArea = destination;
             }
         }
 

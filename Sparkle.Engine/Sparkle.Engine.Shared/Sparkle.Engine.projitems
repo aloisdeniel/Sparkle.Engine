@@ -27,6 +27,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Body.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\ComponentEventArgs.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Input.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Parralax.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\ParticleEmitter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\Renderer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Core\Components\SpriteRenderer.cs" />

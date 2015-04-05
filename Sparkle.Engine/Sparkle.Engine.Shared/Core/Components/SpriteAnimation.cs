@@ -97,7 +97,7 @@
 
             var index = (int)(time * steps.Count);
                         
-            return steps[index];
+            return steps[Math.Min(index,steps.Count -1)];
         }
 
         public void Stop()
