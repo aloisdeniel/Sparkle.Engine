@@ -254,7 +254,11 @@
             {
                 if(position != value)
                 {
-                    position = value; 
+                    position = value;
+                    foreach (var child in children)
+                    {
+                        child.HasPositionChanged = true;
+                    }
                 }
             }
         }
@@ -276,6 +280,10 @@
                 if (scale != value)
                 {
                     scale = value;
+                    foreach (var child in children)
+                    {
+                        child.HasScaleChanged = true;
+                    }
                 }
             }
         }
@@ -297,6 +305,11 @@
                 if (rotation != value)
                 {
                     rotation = value;
+                    foreach (var child in children)
+                    {
+                        child.HasRotationChanged = true;
+                        child.HasPositionChanged = true;
+                    }
                 }
             }
         }
@@ -315,6 +328,10 @@
                 if (color != value)
                 {
                     color = value;
+                    foreach (var child in children)
+                    {
+                        child.HasColorChanged = true;
+                    }
                 }
             }
         }
@@ -330,7 +347,7 @@
             // 1. Parent values always updated on these calls
 
             this.position = this.Parent.Position;
-            this.rotation = this.Parent.Rotation;
+            var rotation = this.Parent.Rotation;
 
             // 2. Updates position
 
